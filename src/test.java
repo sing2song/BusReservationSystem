@@ -5,5 +5,7 @@ public class test {
 		System.out.println("되나?");
 		
 		System.out.println("되라");
+		
+		System.out.println("push 체크");
 	}
 }
