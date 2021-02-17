@@ -7,6 +7,6 @@ public class test {
 		System.out.println("되라");
 		
 		
-		System.out.println("aaa");
+		System.out.println("aaa"); 
 	}
 }
