@@ -22,13 +22,13 @@ public class App {
 			int menu = sc.nextInt();
 			
 			switch(menu){
-			case 1:	rs.insertBus(sc);
+			case 1:	rs.insertBus(sc);break;
 				
-			case 2:
+			case 2: rs.insertPerson(sc);break;
 				
-			case 3:
+			case 3: rs.makeReservation(sc);break;
 				
-			case 4: 
+			case 4: rs.seeDetails(sc);
 				break;
 			case 5: 
 				System.out.println("시스템을 종료합니다!");
