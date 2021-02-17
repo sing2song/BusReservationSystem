@@ -37,7 +37,7 @@ public class App {
 			System.out.println("[버스 예약 시스템]");
 			System.out.println("1.버스추가\t 2.사람추가\t 3.예약\t 4.조회\t 5.종료");
 			System.out.print(">>");
-			int menu = sc.nextInt();
+			int menu = Integer.parseInt(rs.read(sc));
 			
 			switch(menu){
 			case 1:	rs.insertBus(sc);break;
