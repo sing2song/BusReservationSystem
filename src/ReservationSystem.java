@@ -18,7 +18,7 @@ public class ReservationSystem {
 	}
 	public void makeReservation(Scanner in) {
 		int personid = Integer.parseInt(in.nextLine().trim());
-		Bus bus; Person p;
+		Bus bus; Person person;
 		person = people.get(personid-1);
 		print(buses);//버스 이름 출력
 		person.Mytickets();//본인 티켓 상황 출력 
@@ -31,20 +31,34 @@ public class ReservationSystem {
 			if(in.nextLine().trim().equals("n")) bus.addtoqueue(person);
 			else return;
 		}
+		//자리 선택으로 진
 		else {
+			if(person.getBalance() <= bus.getPrice()) {
+				System.out.println("잔액이 부족합니다. ");
+				return;
+			}
 			bus.print();
-			System.out.print("좌석 번호를 선택해주세요: >>");
-			
+			System.out.print("좌석 번호를 선택해주세요: >> ");
+			int seat = Integer.parseInt(in.nextLine().trim());
+			if(bus.reserve(seat, person.getId())) person.AddBus(bus, seat);
+			else System.out.println("오류!");
 		}
 		
 		
 		
 	}
 	public void seeDetails(Scanner in) {
+		int personid = Integer.parseInt(in.nextLine().trim());
+		people.get(personid-1).MyTickets();
 		
 	}
 	public void cancelReservation(Scanner in) {
-		
+		int personid = Integer.parseInt(in.nextLine().trim());
+		Person person = people.get(personid-1);
+		person.MyTickets();
+		System.out.print("취소하실 버스를 선택해주세요 : >> ");
+		int busid = Integer.parseInt(in.nextLine().trim());
+		//int seat = person.CancelBus(busId, seat)
 	}
 	/*HELPER METHODS*/
 	public void print(List l) {
