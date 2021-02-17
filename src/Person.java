@@ -43,7 +43,7 @@ public class Person {
 		}else return false;
 	}
 	
-	public int CancelBus(int busId,int seat ) {
+	public int CancelBus(int busId) {
 		return tickets.remove(busId);
 	}
 	
