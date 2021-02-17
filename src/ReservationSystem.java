@@ -7,10 +7,14 @@ public class ReservationSystem {
 		people = new ArrayList<Person>();
 	}
 	public void insertBus(Scanner in) {
-		
+		//name, price, size
+		String[] arr = in.nextLine().trim().split(" ");
+		buses.add(new Bus(buses.size()+1, arr[0], Integer.parseInt(arr[1]), Integer.parseInt(arr[2])));
 	}
 	public void insertPerson(Scanner in) {
-		
+		//name, balannce, 
+		String[] arr = in.nextLine().trim().split(" ");
+		people.add(people.size()+1, arr[0], Integer.parseInt(arr[1]));
 	}
 	public void makeReservation(Scanner in) {
 		
