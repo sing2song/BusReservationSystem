@@ -1,3 +1,4 @@
+import java.io.File;
 import java.util.Scanner;
 
 public class App {
@@ -9,12 +10,29 @@ public class App {
 	}
 	
 	public void init() {
+		try {
+			Scanner sc = new Scanner(new File("buses.txt"));
+			while(sc.hasNextLine()) {
+				//name, price, size
+				String[] arr = rs.read(sc).split(" ");
+				rs.insertBus(arr[0], Integer.parseInt(arr[1]), Integer.parseInt(arr[2]) );
+			}
+			sc = new Scanner(new File("people.txt"));
+			while(sc.hasNextLine()) {
+				//name, balance
+				String[] arr = rs.read(sc).split(" ");
+				rs.insertPerson(arr[0], Integer.parseInt(arr[1]));
+			}
+		}
+		catch(Exception e) {
+			System.out.println("file io error: " + e.getMessage());
+		}
+		
 		
 	}
 	
 	public void run() {
 		Scanner sc = new Scanner(System.in);
-		
 		while(true) {
 			System.out.println("[버스 예약 시스템]");
 			System.out.println("1.버스추가\t 2.사람추가\t 3.예약\t 4.조회\t 5.종료");
