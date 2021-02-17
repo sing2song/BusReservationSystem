@@ -5,5 +5,8 @@ public class test {
 		System.out.println("되나?");
 		
 		System.out.println("되라");
+		
+		
+		System.out.println("aaa");
 	}
 }
