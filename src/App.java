@@ -4,6 +4,7 @@ public class App {
 
 	private ReservationSystem rs;
 	public App() {
+		rs = new ReservationSystem();
 		init();
 	}
 	
@@ -21,7 +22,7 @@ public class App {
 			int menu = sc.nextInt();
 			
 			switch(menu){
-			case 1:
+			case 1:	rs.insertBus(sc);
 				
 			case 2:
 				
