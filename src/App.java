@@ -40,6 +40,15 @@ public class App {
 			int menu = sc.nextInt();
 			
 			switch(menu){
+<<<<<<< HEAD
+			case 1:
+				break;
+			case 2:
+				break;
+			case 3:
+				break;
+			case 4: 
+=======
 			case 1:	rs.insertBus(sc);break;
 				
 			case 2: rs.insertPerson(sc);break;
@@ -47,6 +56,7 @@ public class App {
 			case 3: rs.makeReservation(sc);break;
 				
 			case 4: rs.seeDetails(sc);
+>>>>>>> bcb2342cb29a68b8ac26900036c93a8e465edd4e
 				break;
 			case 5: 
 				System.out.println("시스템을 종료합니다!");

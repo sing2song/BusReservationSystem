@@ -2,6 +2,7 @@ import java.util.*;
 public class ReservationSystem {
 	List<Bus> buses;
 	List<Person> people;
+	
 	public ReservationSystem() {
 		buses = new ArrayList<Bus>();
 		people = new ArrayList<Person>();
@@ -32,7 +33,7 @@ public class ReservationSystem {
 		Bus bus; Person person;
 		person = people.get(personid-1);
 		print(buses);//버스 이름 출력
-		person.Mytickets();//본인 티켓 상황 출력 
+		person.MyTickets();//본인 티켓 상황 출력 
 		System.out.print("버스를 선택해주세요 >>");
 		int busid = Integer.parseInt(read(in));
 		bus = buses.get(busid-1);
@@ -75,6 +76,7 @@ public class ReservationSystem {
 		if(seat != null) bus.get(busid-1).cancel(seat);
 		else System.out.println("예약 취소 오류!");
 	}
+	
 	/*HELPER METHODS*/
 	public void print(List<Bus> l) {
 		for (Bus o : l) {
