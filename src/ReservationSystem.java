@@ -79,7 +79,10 @@ public class ReservationSystem {
 			//만석 
 			if(bus.getCount() == bus.getSeats().length) {
 				System.out.print("대기실에 입장하시겠습니까? y/n >> ");
-				if(read(in).equals("y")) bus.AddToQueue(person);
+				if(read(in).equals("y")) {
+					bus.AddToQueue(person);
+					person.addQueueBuses(bus);
+				}
 			}
 			//자리 선택으로 진
 			else {
