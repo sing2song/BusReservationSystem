@@ -120,6 +120,11 @@ public class ReservationSystem {
 			else System.out.println("예약 취소 오류!");
 		}else System.out.println("존재하지 않는 id입니다.");
 	}
+	/*6*/
+	public void cancelBusQueue(Scanner sc) {
+		
+		
+	}
 	/*HELPER METHODS*/
 	public void printBuses(List<Bus> l) {
 		for (Bus o : l) {
@@ -129,5 +134,6 @@ public class ReservationSystem {
 	public String read(Scanner in) {
 		return in.nextLine().trim();
 	}
+
 
 }
