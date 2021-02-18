@@ -34,6 +34,7 @@ public class App {
 	public void run() {
 		Scanner sc = new Scanner(System.in);
 		while(true) {
+			System.out.println("===================================================================");
 			System.out.println("[버스 예약 시스템]");
 			System.out.println("1.버스추가 2.사람추가 3.예약 4.조회 5.취소 6.대기 취소 7.종료");
 			System.out.print(">>");
