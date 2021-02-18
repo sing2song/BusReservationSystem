@@ -97,12 +97,19 @@ public class Bus {
 		
 		return seats[seat];
 	}
-	public void Print() {
+	public void PrintSeats() {
 		for (int i = 0 ; i < seats.length; i ++) {
 			System.out.printf("[%d] ", i+1);
 			if(seats[i] == 0) System.out.println("O");
 			else System.out.println("X");
 		}
+	}
+	public void PrintBus() {
+		System.out.printf("[%d] ", busId);
+		System.out.printf("%s ", name);
+		System.out.print( count == seats.length ? "만석!": "" );
+		System.out.print( queue.size() > 0 ? "대기자들: " + this.queue.size() + " 명\n": "\n" );
+		
 	}
 
 }
