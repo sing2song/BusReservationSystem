@@ -77,7 +77,7 @@ public class Bus {
 	}
 	
 	public boolean Reserve(int seat, int PersonID) {
-		System.out.println("bus reserving index " + seat);
+		//System.out.println("bus reserving index " + seat);
 		if(seats[seat] == 0) {
 			count++;
 			seats[seat] = PersonID;

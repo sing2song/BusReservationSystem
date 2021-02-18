@@ -57,7 +57,7 @@ public class ReservationSystem {
 			int seat = Integer.parseInt(read(in));
 			if(	bus.Reserve(seat-1, person.getId())	) {
 				person.AddBus(bus, seat);//bus = indexing
-				System.out.println("예약 성공! ");
+				System.out.println(bus.getBusId()+"버스 "+seat+"좌석 예약 성공! ");
 			}
 			else System.out.println("예약 오류!");
 		}
@@ -79,7 +79,10 @@ public class ReservationSystem {
 		System.out.print("취소하실 버스를 선택해주세요 : >> ");
 		int busid = Integer.parseInt(read(in));
 		Integer seat = person.CancelBus(busid);
-		if(seat != null) buses.get(busid-1).Cancel(seat-1);
+		if(seat != null) {
+			buses.get(busid-1).Cancel(seat-1);
+			System.out.println("취소 완료");
+		}
 		else System.out.println("예약 취소 오류!");
 	}
 	/*HELPER METHODS*/

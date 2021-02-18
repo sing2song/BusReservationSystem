@@ -35,7 +35,7 @@ public class App {
 		Scanner sc = new Scanner(System.in);
 		while(true) {
 			System.out.println("[버스 예약 시스템]");
-			System.out.println("1.버스추가\t 2.사람추가\t 3.예약\t 4.조회\t 5.종료");
+			System.out.println("1.버스추가\t 2.사람추가\t 3.예약\t 4.조회\t 5.취소\t 6.종료");
 			System.out.print(">>");
 			int menu = Integer.parseInt(rs.read(sc));
 			
@@ -48,9 +48,14 @@ public class App {
 				
 			case 4: rs.seeDetails(sc);
 				break;
-			case 5: 
+			case 5: rs.cancelReservation(sc);
+			break;
+			case 6: 
 				System.out.println("시스템을 종료합니다!");
 				System.exit(0);
+			default:
+				System.out.println("잘못 입력하셨습니다!");
+				break;
 			}
 		}
 	}
