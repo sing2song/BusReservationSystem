@@ -11,7 +11,7 @@ public class Bus {
 	private int[] seats;
 	
 	//생성자
-	public Bus(int busId, int price, String name,int size) {
+	public Bus(int busId, String name, int price,int size) {
 		this.busId = busId;
 		this.price = price;
 		this.name = name;
@@ -95,6 +95,13 @@ public class Bus {
 		}
 		
 		return seats[seat];
+	}
+	public void Print() {
+		for (int i = 0 ; i < seats.length; i ++) {
+			System.out.printf("[%d] ", i+1);
+			if(seats[i] == 0) System.out.println("O");
+			else System.out.println("X");
+		}
 	}
 
 }

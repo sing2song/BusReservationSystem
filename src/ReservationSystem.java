@@ -42,9 +42,9 @@ public class ReservationSystem {
 		int busid = Integer.parseInt(read(in));
 		bus = buses.get(busid-1);
 		//만석 
-		if(bus.getCount == bus.getSeats().length) {
+		if(bus.getCount() == bus.getSeats().length) {
 			System.out.print("대기실에 입장하시겠습니까? y/n >> ");
-			if(read(in).equals("y")) bus.addtoqueue(person);
+			if(read(in).equals("y")) bus.AddToQueue(person);
 		}
 		//자리 선택으로 진
 		else {
@@ -52,10 +52,10 @@ public class ReservationSystem {
 				System.out.println("잔액이 부족합니다. ");
 				return;
 			}
-			bus.print();
+			bus.Print();
 			System.out.print("좌석 번호를 선택해주세요: >> ");
-			int seat = Integer.parseInt(read(in));
-			if(bus.reserve(seat, person.getId())) person.AddBus(bus, seat);
+			int seat = Integer.parseInt(read(in))-1;
+			if(bus.Reserve(seat, person.getId())) person.AddBus(bus, seat);
 			else System.out.println("예약 오류!");
 		}
 		
@@ -75,14 +75,14 @@ public class ReservationSystem {
 		person.MyTickets();
 		System.out.print("취소하실 버스를 선택해주세요 : >> ");
 		int busid = Integer.parseInt(read(in));
-		Integer seat = person.CancelBus(busid);
-		if(seat != null) bus.get(busid-1).cancel(seat);
+		Integer seat = person.CancelBus(busid)-1;
+		if(seat != null) buses.get(busid-1).Cancel(seat-1);
 		else System.out.println("예약 취소 오류!");
 	}
 	/*HELPER METHODS*/
 	public void print(List<Bus> l) {
 		for (Bus o : l) {
-			System.out.println("[" + o.getId()+ "] "+o.getName());
+			System.out.println("[" + o.getBusId()+ "] "+o.getName());
 		}
 	}
 	public String read(Scanner in) {
