@@ -58,7 +58,7 @@ public class ReservationSystem {
 					System.out.println("잔액이 부족합니다. ");
 					return;
 				}
-				bus.PrintBus();
+				bus.PrintSeats();
 				System.out.print("좌석 번호를 선택해주세요: >> ");
 				int seat = Integer.parseInt(read(in));
 				if(bus.Reserve(seat-1, person.getId())) {
