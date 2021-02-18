@@ -93,6 +93,7 @@ public class Bus {
 			seats[seat] = person.getId();
 			 person.AddBus(this, seat);
 		}
+		else count --;
 		
 		return seats[seat];
 	}
