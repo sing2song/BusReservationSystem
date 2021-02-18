@@ -134,6 +134,10 @@ public class ReservationSystem {
 		if(checkId(personid)) {
 			Person person = people.get(personid-1);
 			person.MyQueue();
+			if(person.getQueuedBuses().size() == 0) {
+				System.out.println("대기중인 버스가 없습니다 ");
+				return;
+			}
 			System.out.print("취소하실 버스를 선택해주세요 : >> ");
 			try {
 				int busid = Integer.parseInt(read(in));
