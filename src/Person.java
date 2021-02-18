@@ -79,5 +79,8 @@ public class Person {
 		for (Bus b: this.queuedBuses) System.out.printf("[%d] %s\t", b.getBusId(), b.getName()); 
 		System.out.println();
 	}
+	public Set<Bus> getQueuedBuses() {
+		return this.queuedBuses;
+	}
 	
 }
