@@ -1,4 +1,5 @@
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
@@ -16,6 +17,7 @@ public class Person {
 		this.name=name;
 		this.balance=balance;
 		tickets = new HashMap<Integer, Integer>();
+		queuedBuses = new HashSet<Bus>();
 	}
 	
 	//getter
