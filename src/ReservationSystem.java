@@ -36,7 +36,7 @@ public class ReservationSystem {
 		System.out.print("id 를 입력해주세요 : >> ");
 		int personid = Integer.parseInt(read(in));
 		person = people.get(personid-1);
-		print(buses);//버스 이름 출력
+		printBuses(buses);//버스 이름 출력
 		person.MyTickets();//본인 티켓 상황 출력 
 		System.out.print("버스를 선택해주세요 >> ");
 		int busid = Integer.parseInt(read(in));
@@ -52,7 +52,7 @@ public class ReservationSystem {
 				System.out.println("잔액이 부족합니다. ");
 				return;
 			}
-			bus.Print();
+			bus.PrintSeats();
 			System.out.print("좌석 번호를 선택해주세요: >> ");
 			int seat = Integer.parseInt(read(in));
 			if(	bus.Reserve(seat-1, person.getId())	) {
@@ -83,9 +83,9 @@ public class ReservationSystem {
 		else System.out.println("예약 취소 오류!");
 	}
 	/*HELPER METHODS*/
-	public void print(List<Bus> l) {
+	public void printBuses(List<Bus> l) {
 		for (Bus o : l) {
-			System.out.println("[" + o.getBusId()+ "] "+o.getName());
+			o.PrintBus();
 		}
 	}
 	public String read(Scanner in) {

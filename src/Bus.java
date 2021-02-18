@@ -97,7 +97,7 @@ public class Bus {
 		
 		return seats[seat];
 	}
-	public void Print() {
+	public void PrintSeats() {
 		for (int i = 0 ; i < seats.length; i ++) {
 			System.out.printf("[%d] ", i+1);
 			if(seats[i] == 0) System.out.println("O");
