@@ -129,5 +129,9 @@ public class ReservationSystem {
 	public String read(Scanner in) {
 		return in.nextLine().trim();
 	}
+	public void cancelBusQueue(Scanner sc) {
+		// TODO Auto-generated method stub
+		
+	}
 
 }
