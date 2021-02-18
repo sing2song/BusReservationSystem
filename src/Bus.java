@@ -104,5 +104,11 @@ public class Bus {
 			else System.out.println("X");
 		}
 	}
+	public void PrintBus() {
+		System.out.printf("[%d] ", busId);
+		System.out.printf("[%s] ", name);
+		System.out.print( count == seats.length ? "만석!": "" );
+		System.out.print( queue.size() >= 0 ? "대기자들: " + this.queue.size() + " 명": "" );
+	}
 
 }
