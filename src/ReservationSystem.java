@@ -64,6 +64,10 @@ public class ReservationSystem {
 				System.out.println("중복 예약입니다. ");
 				return;
 			}
+			if(bus.hasPerson(person)) {
+				System.out.println("이미 대기 중 입니다. ");
+				return;
+			}
 			//만석 
 			if(bus.getCount() == bus.getSeats().length) {
 				System.out.print("대기실에 입장하시겠습니까? y/n >> ");
