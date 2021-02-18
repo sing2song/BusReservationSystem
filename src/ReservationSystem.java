@@ -57,11 +57,12 @@ public class ReservationSystem {
 			printBuses(buses);//버스 이름 출력
 			person.MyTickets();//본인 티켓 상황 출력 
 			System.out.print("버스를 선택해주세요 >> ");
+			//bus id validity check 
 			int busid;
 			try {
 				busid = Integer.parseInt(read(in));
-			}
-			catch(Exception e) {
+				if(busid > buses.size()) throw new Exception();
+			} catch(Exception e) {
 				System.out.println("없는 버스 id 입니다 ");
 				return;
 			}
