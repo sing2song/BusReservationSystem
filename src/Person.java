@@ -7,7 +7,7 @@ public class Person {
 	private String name;
 	private int balance;
 	private Map<Integer, Integer> tickets; //버스ID, 좌석
-	private Set<Integer> queuedBuses;
+	private Set<Bus> queuedBuses;
 	//한사람이 한 자리 예약할 수 있다는 가정
 
 	//생성자
@@ -52,11 +52,11 @@ public class Person {
 	public void PayTicket(int amount ) {
 		balance-=amount;
 	}
-	public void addQueueBuses(int busid) {
-		this.queuedBuses.add(busid);
+	public void addQueueBuses(Bus bus) {
+		this.queuedBuses.add(bus);
 	}
-	public void removeQueueBuses(int busid) {
-		this.queuedBuses.remove(busid);
+	public void removeQueueBuses(Bus bus) {
+		this.queuedBuses.remove(bus);
 	}
 	
 	public void MyTickets() {
@@ -65,6 +65,15 @@ public class Person {
 			System.out.print("[구매한 티켓] ");
 			for( int val :tickets.keySet()) {
 				System.out.println("버스번호 : "+val+" 좌석번호 : "+tickets.get(val));
+			}
+		}
+		System.out.println();
+	}
+	public void MyQueue() {
+		System.out.print("[대기중인버스] ");
+		if(!this.queuedBuses.isEmpty()) {
+			for (Bus b: this.queuedBuses) {
+				System.out.printf("[%d] %s\t", b.getBusId(), b.getName());
 			}
 		}
 		System.out.println();

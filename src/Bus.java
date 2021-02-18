@@ -75,6 +75,9 @@ public class Bus {
 	public void AddToQueue(Person p) {
 		queue.add(p);
 	}
+	public void RemoveFromQueue(Person p) {
+		queue.remove(p);
+	}
 	public boolean hasPerson(Person p) {
 		return queue.contains(p);
 	}
