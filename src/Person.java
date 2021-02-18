@@ -71,10 +71,7 @@ public class Person {
 		}
 	}
 	public void MyQueue() {
-		if(this.queuedBuses.size() == 0) {
-			System.out.println("대기중인 버스가 없습니다 ");
-			return;
-		}
+		if(this.queuedBuses.size() == 0) return;
 		System.out.print("[대기중인버스] ");
 		for (Bus b: this.queuedBuses) System.out.printf("[%d] %s\t", b.getBusId(), b.getName()); 
 		System.out.println();
