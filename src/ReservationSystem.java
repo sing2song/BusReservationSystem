@@ -121,8 +121,18 @@ public class ReservationSystem {
 		}else System.out.println("존재하지 않는 id입니다.");
 	}
 	/*6*/
-	public void cancelBusQueue(Scanner sc) {
-		
+	public void cancelBusQueue(Scanner in) {
+		System.out.print("id 를 입력해주세요 : >> ");
+		int personid = Integer.parseInt(read(in));
+		if(checkId(personid)) {
+			Person person = people.get(personid-1);
+			person.MyQueue();
+			System.out.print("취소하실 버스를 선택해주세요 : >> ");
+			int busid = Integer.parseInt(read(in));
+			Integer seat = person.CancelBus(busid);
+			if(seat != null) buses.get(busid-1).Cancel(seat-1);
+			else System.out.println("예약 취소 오류!");
+		}else System.out.println("존재하지 않는 id입니다.");
 		
 	}
 	/*HELPER METHODS*/
