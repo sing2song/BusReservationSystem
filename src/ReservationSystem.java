@@ -55,7 +55,10 @@ public class ReservationSystem {
 			bus.Print();
 			System.out.print("좌석 번호를 선택해주세요: >> ");
 			int seat = Integer.parseInt(read(in));
-			if(bus.Reserve(seat-1, person.getId())) person.AddBus(bus, seat);//bus = indexing
+			if(bus.Reserve(seat-1, person.getId())) {
+				person.AddBus(bus, seat);//bus = indexing
+				System.out.println("예약 성공! ");
+			}
 			else System.out.println("예약 오류!");
 		}
 		

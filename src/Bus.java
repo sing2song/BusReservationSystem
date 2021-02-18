@@ -91,7 +91,7 @@ public class Bus {
 		if(queue.size() >0) {
 			Person person = queue.remove();
 			seats[seat] = person.getId();
-			 person.AddBus(this, seat);
+			 person.AddBus(this, seat+1);
 		}
 		else count --;
 		
