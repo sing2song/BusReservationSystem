@@ -54,8 +54,8 @@ public class ReservationSystem {
 		int personid = Integer.parseInt(read(in));
 		if(checkId(personid)) {
 			person = people.get(personid-1);
-			printBuses(buses);//버스 이름 출력
 			person.MyTickets();//본인 티켓 상황 출력 
+			printBuses(buses);//버스 이름 출력
 			System.out.print("버스를 선택해주세요 >> ");
 			int busid = Integer.parseInt(read(in));
 			bus = buses.get(busid-1);
