@@ -75,6 +75,9 @@ public class Bus {
 	public void AddToQueue(Person p) {
 		queue.add(p);
 	}
+	public boolean hasPerson(Person p) {
+		return queue.contains(p);
+	}
 	
 	public boolean Reserve(int seat, int PersonID) {
 		//System.out.println("bus reserving index " + seat);
