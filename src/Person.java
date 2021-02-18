@@ -59,6 +59,7 @@ public class Person {
 				System.out.println("버스번호 : "+val+" 좌석번호 : "+tickets.get(val));
 			}
 		}
+		System.out.println();
 	}
 	
 }

@@ -49,7 +49,7 @@ public class App {
 			case 4: rs.seeDetails(sc);
 				break;
 			case 5: rs.cancelReservation(sc);
-			break;
+				break;
 			case 6: 
 				System.out.println("시스템을 종료합니다!");
 				System.exit(0);
