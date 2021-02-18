@@ -36,9 +36,9 @@ public class Person {
 	//기능메서드
 	public boolean AddBus(Bus bus, int seat) {
 		
-		if(bus.reserve(seat,id)) {//예약가능한지
-			tickets.put(bus.id, seat);
-			Payticket(bus.price);
+		if(bus.Reserve(seat,id)) {//예약가능한지
+			tickets.put(bus.getBusId(), seat);
+			PayTicket(bus.getPrice());
 			return true;
 		}else return false;
 	}
