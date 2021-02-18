@@ -8,7 +8,6 @@ public class ReservationSystem {
 	}
 	/*아이디 유효성체크*/
 	public boolean checkId(int id) {
-		System.out.println("id="+id+", people.size():"+people.size());
 		return id<=people.size();
 	}
 	
