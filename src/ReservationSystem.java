@@ -106,8 +106,10 @@ public class ReservationSystem {
 	public void seeDetails(Scanner in) {
 		System.out.print("id 를 입력해주세요 : >> ");
 		int personid = Integer.parseInt(read(in));
-		if(checkId(personid))
+		if(checkId(personid)) {
 			people.get(personid-1).MyTickets();
+			people.get(personid-1).MyQueue();
+		}
 		else System.out.println("존재하지 않는 id입니다.");
 	}
 	public void cancelReservation(Scanner in) {
@@ -134,6 +136,10 @@ public class ReservationSystem {
 		if(checkId(personid)) {
 			Person person = people.get(personid-1);
 			person.MyQueue();
+			if(person.getQueuedBuses().size() == 0) {
+				System.out.println("대기중인 버스가 없습니다 ");
+				return;
+			}
 			System.out.print("취소하실 버스를 선택해주세요 : >> ");
 			try {
 				int busid = Integer.parseInt(read(in));
