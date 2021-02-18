@@ -1,11 +1,13 @@
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 public class Person {
 	private int id;//0이상이여야한다
 	private String name;
 	private int balance;
 	private Map<Integer, Integer> tickets; //버스ID, 좌석
+	private Set<Integer> queuedBuses;
 	//한사람이 한 자리 예약할 수 있다는 가정
 
 	//생성자
@@ -49,6 +51,12 @@ public class Person {
 	
 	public void PayTicket(int amount ) {
 		balance-=amount;
+	}
+	public void addQueueBuses(int busid) {
+		this.queuedBuses.add(busid);
+	}
+	public void removeQueueBuses(int busid) {
+		this.queuedBuses.remove(busid);
 	}
 	
 	public void MyTickets() {
