@@ -40,6 +40,7 @@ public class ReservationSystem {
 		Bus bus; Person person;
 		System.out.print("id 를 입력해주세요 : >> ");
 		int personid = Integer.parseInt(read(in));
+<<<<<<< HEAD
 		if(checkId(personid)) {
 			person = people.get(personid-1);
 			print(buses);//버스 이름 출력
@@ -67,6 +68,31 @@ public class ReservationSystem {
 				}
 				else System.out.println("예약 오류!");
 				
+=======
+		person = people.get(personid-1);
+		printBuses(buses);//버스 이름 출력
+		person.MyTickets();//본인 티켓 상황 출력 
+		System.out.print("버스를 선택해주세요 >> ");
+		int busid = Integer.parseInt(read(in));
+		bus = buses.get(busid-1);
+		//만석 
+		if(bus.getCount() == bus.getSeats().length) {
+			System.out.print("대기실에 입장하시겠습니까? y/n >> ");
+			if(read(in).equals("y")) bus.AddToQueue(person);
+		}
+		//자리 선택으로 진
+		else {
+			if(person.getBalance() <= bus.getPrice()) {
+				System.out.println("잔액이 부족합니다. ");
+				return;
+			}
+			bus.PrintSeats();
+			System.out.print("좌석 번호를 선택해주세요: >> ");
+			int seat = Integer.parseInt(read(in));
+			if(	bus.Reserve(seat-1, person.getId())	) {
+				person.AddBus(bus, seat);//bus = indexing
+				System.out.println("예약 성공! ");
+>>>>>>> 8050b40ab101ba1c1f2fb1ba8ccf5fd661cd1afb
 			}
 		}else {
 			System.out.println("존재하지 않는 id입니다.");
@@ -94,9 +120,9 @@ public class ReservationSystem {
 		}else System.out.println("존재하지 않는 id입니다.");
 	}
 	/*HELPER METHODS*/
-	public void print(List<Bus> l) {
+	public void printBuses(List<Bus> l) {
 		for (Bus o : l) {
-			System.out.println("[" + o.getBusId()+ "] "+o.getName());
+			o.PrintBus();
 		}
 	}
 	public String read(Scanner in) {
