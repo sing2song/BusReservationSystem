@@ -72,12 +72,12 @@ public class Person {
 		System.out.println();
 	}
 	public void MyQueue() {
-		System.out.print("[대기중인버스] ");
-		if(!this.queuedBuses.isEmpty()) {
-			for (Bus b: this.queuedBuses) {
-				System.out.printf("[%d] %s\t", b.getBusId(), b.getName());
-			}
+		if(this.queuedBuses.size() == 0) {
+			System.out.print("대기중인 버스가 없습니다 ");
+			return;
 		}
+		System.out.print("[대기중인버스] ");
+		for (Bus b: this.queuedBuses) System.out.printf("[%d] %s\t", b.getBusId(), b.getName()); 
 		System.out.println();
 	}
 	
