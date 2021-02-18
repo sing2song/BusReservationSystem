@@ -39,6 +39,9 @@ public class Person {
 			PayTicket(bus.getPrice());
 			return true;
 	}
+	public boolean hasBus(int busid) {
+		return this.tickets.containsKey(busid);
+	}
 	
 	public int CancelBus(int busId) {
 		return tickets.remove(busId);

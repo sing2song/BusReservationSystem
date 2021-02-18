@@ -57,8 +57,24 @@ public class ReservationSystem {
 			printBuses(buses);//버스 이름 출력
 			person.MyTickets();//본인 티켓 상황 출력 
 			System.out.print("버스를 선택해주세요 >> ");
-			int busid = Integer.parseInt(read(in));
+			int busid;
+			try {
+				busid = Integer.parseInt(read(in));
+			}
+			catch(Exception e) {
+				System.out.println("없는 버스 id 입니다 ");
+				return;
+			}
 			bus = buses.get(busid-1);
+			//중복 
+			if(person.hasBus(busid)) {
+				System.out.println("중복 예약입니다. ");
+				return;
+			}
+			if(bus.hasPerson(person)) {
+				System.out.println("이미 대기 중 입니다. ");
+				return;
+			}
 			//만석 
 			if(bus.getCount() == bus.getSeats().length) {
 				System.out.print("대기실에 입장하시겠습니까? y/n >> ");
