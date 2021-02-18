@@ -53,9 +53,11 @@ public class Person {
 	
 	public void MyTickets() {
 		System.out.println("[잔액] : " + this.balance);
-		System.out.print("[구매한 티켓] ");
-		for( int val :tickets.keySet()) {
-			System.out.println("버스번호 : "+val+" 좌석번호 : "+tickets.get(val));
+		if(!tickets.isEmpty()) {
+			System.out.print("[구매한 티켓] ");
+			for( int val :tickets.keySet()) {
+				System.out.println("버스번호 : "+val+" 좌석번호 : "+tickets.get(val));
+			}
 		}
 	}
 	
