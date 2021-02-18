@@ -72,7 +72,7 @@ public class Person {
 	}
 	public void MyQueue() {
 		if(this.queuedBuses.size() == 0) {
-			System.out.print("대기중인 버스가 없습니다 ");
+			System.out.println("대기중인 버스가 없습니다 ");
 			return;
 		}
 		System.out.print("[대기중인버스] ");
