@@ -20,8 +20,14 @@ public class ReservationSystem {
 	public void insertBus(Scanner in) {
 		//name, price, size
 		System.out.print("[버스이름 티켓값 좌석수]을 입력해주세요 : >> ");
-		String[] arr = read(in).split(" ");
-		buses.add(new Bus(buses.size()+1, arr[0], Integer.parseInt(arr[1]), Integer.parseInt(arr[2])));
+		try {
+			String[] arr = read(in).split(" ");
+			buses.add(new Bus(buses.size()+1, arr[0], Integer.parseInt(arr[1]), Integer.parseInt(arr[2])));
+		}
+		catch(Exception e) {
+			System.out.print("입력 오류가 있었습니다");
+		}
+		
 	}
 	/*3*/
 	public void insertPerson(String name, int balance) {
@@ -32,8 +38,14 @@ public class ReservationSystem {
 	public void insertPerson(Scanner in) {
 		//name, balance, 
 		System.out.print("[이름 잔액]을 입력해주세요 : >> ");
-		String[] arr = read(in).split(" ");
-		people.add( new Person(people.size()+1, arr[0], Integer.parseInt(arr[1]) ) );
+		try {
+			String[] arr = read(in).split(" ");
+			people.add( new Person(people.size()+1, arr[0], Integer.parseInt(arr[1]) ) );	
+		}
+		catch(Exception e) {
+			System.out.print("입력 오류가 있었습니다");
+		}
+		
 	}
 	/*5*/
 	public void makeReservation(Scanner in) {
