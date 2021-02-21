@@ -47,8 +47,9 @@ public class Person {
 		return this.tickets.containsKey(busid);
 	}
 	
-	public int CancelBus(int busId) {
-		return tickets.remove(busId);
+	public int CancelBus(Bus bus) {
+		if(hasBus(bus.getBusId())) this.balance += bus.getPrice();
+		return tickets.remove(bus.getBusId());
 	}
 	
 	public void PayTicket(int amount ) {
@@ -64,9 +65,9 @@ public class Person {
 	public void MyTickets() {
 		System.out.println("[잔액] : " + this.balance);
 		if(!tickets.isEmpty()) {
-			System.out.print("[구매한 티켓] ");
+			System.out.println("[구매한 티켓] ");
 			for( int val :tickets.keySet()) {
-				System.out.println("버스번호 : "+val+" 좌석번호 : "+tickets.get(val));
+				System.out.printf("> [%d], 좌석번호: %d\n", val, tickets.get(val));
 			}
 		}
 

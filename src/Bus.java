@@ -81,9 +81,9 @@ public class Bus {
 	public boolean hasPerson(Person p) {
 		return queue.contains(p);
 	}
-	
+	public boolean isFull() { return this.count >= this.seats.length;}
 	public boolean Reserve(int seat, int PersonID) {
-		//System.out.println("bus reserving index " + seat);
+		if(seat>=seats.length) return false;
 		if(seats[seat] == 0) {
 			count++;
 			seats[seat] = PersonID;
