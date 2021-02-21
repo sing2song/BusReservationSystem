@@ -11,12 +11,12 @@ public class ReservationSystem {
 		return id<=people.size();
 	}
 	
-	/*1*/
+	/*file io*/
 	public void insertBus(String name, int price, int size) {
 		//name, price, size
 		buses.add(new Bus(buses.size()+1, name, price, size));
 	}
-	/*2*/
+	/*1*/
 	public void insertBus(Scanner in) {
 		//name, price, size
 		System.out.print("[버스이름 티켓값 좌석수]을 입력해주세요 : >> ");
@@ -29,12 +29,12 @@ public class ReservationSystem {
 		}
 		
 	}
-	/*3*/
+	/*file io*/
 	public void insertPerson(String name, int balance) {
 		//name, balance, 
 		people.add(new Person(people.size()+1, name, balance));
 	}
-	/*4*/
+	/*2*/
 	public void insertPerson(Scanner in) {
 		//name, balance, 
 		System.out.print("[이름 잔액]을 입력해주세요 : >> ");
@@ -47,7 +47,7 @@ public class ReservationSystem {
 		}
 		
 	}
-	/*5*/
+	/*3*/
 	public void makeReservation(Scanner in) {
 		Bus bus; Person person;
 		System.out.print("id 를 입력해주세요 : >> ");
@@ -84,26 +84,27 @@ public class ReservationSystem {
 		}
 		bus.PrintSeats();
 		System.out.print("좌석 번호를 선택해주세요: >> ");
-		int seat = Integer.parseInt(read(in));
-		if(bus.Reserve(seat-1, person.getId())) {//bus.seats[i-1] --> i: 좌석번호 
-			person.AddBus(bus, seat);
-			System.out.printf("[%d] %s 버스, %d 좌석 예약 성공!\n", bus.getBusId(), bus.getName(), seat);
+		try {
+			int seat = Integer.parseInt(read(in));
+			if(bus.Reserve(seat-1, person.getId())) {//bus.seats[i-1] --> i: 좌석번호 
+				person.AddBus(bus, seat);
+				System.out.printf("[%d] %s 버스, %d 좌석 예약 성공!\n", bus.getBusId(), bus.getName(), seat);
+			}
+			else throw new Exception();
 		}
-		else System.out.println("예약 오류!");
+		catch (Exception e) {System.out.println("예약 오류!");}
 	}
-	
+	/*4*/
 	public void seeDetails(Scanner in) {
 		System.out.print("id 를 입력해주세요 : >> ");
 		Person person = getPerson(in);
-		if(person == null) {
-			System.out.println("존재하지 않는 id입니다.");
-			return;
-		}
+		if(person == null) return;
 		System.out.println("*******************************************");
 		person.MyTickets();
 		person.MyQueue();
 		System.out.println("*******************************************");
 	}
+	/*5*/
 	public void cancelReservation(Scanner in) {
 		System.out.print("id 를 입력해주세요 : >> ");
 		Person person = getPerson(in);
@@ -118,6 +119,7 @@ public class ReservationSystem {
 			Bus bus = getBus(in);
 			Integer seat = person.CancelBus(bus);//key, value삭제, 잔액 더하기
 			bus.Cancel(seat-1);//버스에 삭제 
+			System.out.printf("[%d] %s, 좌석번호: %d 취소 성공했습다\n", bus.getBusId(), bus.getName(), seat);
 		}
 		catch(Exception e) {System.out.println("예약 취소 오류!");}
 	}

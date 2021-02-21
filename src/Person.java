@@ -21,65 +21,40 @@ public class Person {
 	}
 	
 	//getter
-	public int getId() {
-		return id;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public int getBalance() {
-		return balance;
-	}
-
-	public Map<Integer, Integer> getTickets() {
-		return tickets;
-	}
+	public int getId() {return id;}
+	public String getName() {return name;}
+	public int getBalance() {return balance;}
+	public Map<Integer, Integer> getTickets() {return tickets;}
+	public Set<Bus> getQueuedBuses() {return this.queuedBuses;}
 	
 	//기능메서드
 	public boolean AddBus(Bus bus, int seat) {
-			tickets.put(bus.getBusId(), seat);
-			PayTicket(bus.getPrice());
-			return true;
+		tickets.put(bus.getBusId(), seat);
+		PayTicket(bus.getPrice());
+		return true;
 	}
-	public boolean hasBus(int busid) {
-		return this.tickets.containsKey(busid);
-	}
-	
+	public boolean hasBus(int busid) {return this.tickets.containsKey(busid);}
 	public int CancelBus(Bus bus) {
 		if(hasBus(bus.getBusId())) this.balance += bus.getPrice();
 		return tickets.remove(bus.getBusId());
 	}
 	
-	public void PayTicket(int amount ) {
-		balance-=amount;
-	}
-	public void addQueueBuses(Bus bus) {
-		this.queuedBuses.add(bus);
-	}
-	public void removeQueueBuses(Bus bus) {
-		this.queuedBuses.remove(bus);
-	}
+	public void PayTicket(int amount ) {balance-=amount;}
+	public void addQueueBuses(Bus bus) {this.queuedBuses.add(bus);}
+	public void removeQueueBuses(Bus bus) {this.queuedBuses.remove(bus);}
 	
 	public void MyTickets() {
 		System.out.println("[잔액] : " + this.balance);
 		if(!tickets.isEmpty()) {
 			System.out.println("[구매한 티켓] ");
-			for( int val :tickets.keySet()) {
-				System.out.printf("> [%d], 좌석번호: %d\n", val, tickets.get(val));
-			}
+			for( int val :tickets.keySet()) System.out.printf("> [%d], 좌석번호: %d\n", val, tickets.get(val));
 		}
-
 	}
 	public void MyQueue() {
 		if(this.queuedBuses.size() == 0) return;
-		System.out.print("[대기중인버스] ");
+		System.out.print("[대기중인버스] : ");
 		for (Bus b: this.queuedBuses) System.out.printf("[%d] %s\t", b.getBusId(), b.getName()); 
 		System.out.println();
-	}
-	public Set<Bus> getQueuedBuses() {
-		return this.queuedBuses;
 	}
 	
 }
