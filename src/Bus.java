@@ -22,68 +22,26 @@ public class Bus {
 
 
 //getter setter
-	public int[] getSeats() {
-		return seats;
-	}
+	public int[] getSeats() {return seats;}
+	public void setSeats(int[] seats) {this.seats = seats;}
+	public int getBusId() {return busId;}
+	public void setBusId(int busId) {this.busId = busId;}
+	public int getPrice() {return price;}
+	public void setPrice(int price) {this.price = price;}
+	public String getName() {return name;}
+	public void setName(String name) {this.name = name;}
+	public Queue<Person> getQueue() {return queue;}
+	public void setQueue(Queue<Person> queue) {this.queue = queue;}
+	public int getCount() {return count;}
+	public void setCount(int count) {this.count = count;}
 
-	public void setSeats(int[] seats) {
-		this.seats = seats;
-	}
-
-	public int getBusId() {
-		return busId;
-	}
-
-	public void setBusId(int busId) {
-		this.busId = busId;
-	}
-
-	public int getPrice() {
-		return price;
-	}
-
-	public void setPrice(int price) {
-		this.price = price;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public Queue<Person> getQueue() {
-		return queue;
-	}
-
-	public void setQueue(Queue<Person> queue) {
-		this.queue = queue;
-	}
-
-	public int getCount() {
-		return count;
-	}
-
-	public void setCount(int count) {
-		this.count = count;
-	}
-
-	
 	//메소드
-	public void AddToQueue(Person p) {
-		queue.add(p);
-	}
-	public void RemoveFromQueue(Person p) {
-		queue.remove(p);
-	}
-	public boolean hasPerson(Person p) {
-		return queue.contains(p);
-	}
-	
+	public void AddToQueue(Person p) {queue.add(p);}
+	public void RemoveFromQueue(Person p) {queue.remove(p);}
+	public boolean hasPerson(Person p) {return queue.contains(p);}
+	public boolean isFull() { return this.count >= this.seats.length;}
 	public boolean Reserve(int seat, int PersonID) {
-		//System.out.println("bus reserving index " + seat);
+		if(seat>=seats.length) return false;
 		if(seats[seat] == 0) {
 			count++;
 			seats[seat] = PersonID;
@@ -114,7 +72,7 @@ public class Bus {
 		System.out.printf("[%d] ", busId);
 		System.out.printf("%s ", name);
 		System.out.print( count == seats.length ? "만석!": "" );
-		System.out.print( queue.size() > 0 ? "대기자들: " + this.queue.size() + " 명\n": "\n" );
+		System.out.print( queue.size() > 0 ? " 대기자들: " + this.queue.size() + " 명\n": "\n" );
 		
 	}
 
