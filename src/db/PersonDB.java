@@ -1,9 +1,12 @@
 package db;
 import java.sql.Statement;
+import java.util.ArrayList;
 
+import model.Person;
 public class PersonDB {
-	/*QUERIES*/
-	public boolean insertPerson(String name, int balance ) {
+	/*QUERIES***************************************************/
+	/*CREATE*/
+	public boolean insert(String name, int balance ) {
 		try {
 			String query = String.format("");
 			ReservationDB.executeUpdate(query);
@@ -13,16 +16,19 @@ public class PersonDB {
 			System.out.println("error" + e.getMessage());
 			return false;}
 	}
-	public boolean existsPerson(int id) {
+	public Person select(int id) {
+		return null;
+	}
+	/*READ*/
+	public ArrayList<Person> selectAll() {
+		return null;
+	}
+	/*UPDATE*/
+	public boolean update(int id, int amount) {
+		return false;
+	}
+	/**HELPER***************************************/
+	public boolean exists(int id) {
 		return true;
 	}
-	public boolean updatePersonPlus(int id, int amount) {
-		
-		return false;
-	}
-	public boolean updatePersonMinus(int id, int amount) {
-		
-		return false;
-	}
-
 }

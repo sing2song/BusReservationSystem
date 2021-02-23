@@ -1,3 +1,4 @@
+package main;
 import java.util.*;
 
 import db.ReservationDB;
@@ -65,7 +66,7 @@ public class ReservationSystem {
 		bus = getBus(in);
 		if(bus == null) return;
 		//중복 
-		if(person.hasBus(bus.getBusId())) {
+		if(person.hasTicket(bus.getBusId())) {
 			System.out.printf("중복 예약입니다.");
 			return;
 		}
@@ -92,7 +93,7 @@ public class ReservationSystem {
 		try {
 			int seat = Integer.parseInt(read(in));
 			if(bus.Reserve(seat-1, person.getId())) {//bus.seats[i-1] --> i: 좌석번호 
-				person.AddBus(bus, seat);
+				person.AddTicket(bus, seat);
 				System.out.printf("[%d] %s 버스, %d 좌석 예약 성공!\n", bus.getBusId(), bus.getName(), seat);
 			}
 			else throw new Exception();
@@ -122,7 +123,7 @@ public class ReservationSystem {
 		System.out.print("취소하실 버스를 선택해주세요 : >> ");
 		try {
 			Bus bus = getBus(in);
-			Integer seat = person.CancelBus(bus);//key, value삭제, 잔액 더하기
+			Integer seat = person.CancelTicket(bus);//key, value삭제, 잔액 더하기
 			bus.Cancel(seat-1);//버스에 삭제 
 			System.out.printf("[%d] %s, 좌석번호: %d 취소 성공했습다\n", bus.getBusId(), bus.getName(), seat);
 		}

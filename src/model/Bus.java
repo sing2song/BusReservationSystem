@@ -1,3 +1,4 @@
+package model;
 import java.util.LinkedList;
 import java.util.Queue;
 
@@ -55,7 +56,7 @@ public class Bus {
 		if(queue.size() >0) {
 			Person person = queue.remove();
 			seats[seat] = person.getId();
-			 person.AddBus(this, seat+1);
+			 person.AddTicket(this, seat+1);
 		}
 		else count --;
 		

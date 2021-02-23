@@ -1,3 +1,4 @@
+package model;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -28,18 +29,17 @@ public class Person {
 	public Set<Bus> getQueuedBuses() {return this.queuedBuses;}
 	
 	//기능메서드
-	public boolean AddBus(Bus bus, int seat) {
+	public boolean AddTicket(Bus bus, int seat) {
 		tickets.put(bus.getBusId(), seat);
-		PayTicket(bus.getPrice());
+		this.balance -= bus.getPrice();
 		return true;
 	}
-	public boolean hasBus(int busid) {return this.tickets.containsKey(busid);}
-	public int CancelBus(Bus bus) {
-		if(hasBus(bus.getBusId())) this.balance += bus.getPrice();
+	public boolean hasTicket(int busid) {return this.tickets.containsKey(busid);}
+	public int CancelTicket(Bus bus) {
+		if(hasTicket(bus.getBusId())) this.balance += bus.getPrice();
 		return tickets.remove(bus.getBusId());
 	}
 	
-	public void PayTicket(int amount ) {balance-=amount;}
 	public void addQueueBuses(Bus bus) {this.queuedBuses.add(bus);}
 	public void removeQueueBuses(Bus bus) {this.queuedBuses.remove(bus);}
 	

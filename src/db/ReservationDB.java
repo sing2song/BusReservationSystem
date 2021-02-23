@@ -7,10 +7,10 @@ public class ReservationDB {
 	static Connection con = null;
 	static Statement stmt = null;
 	//ReservationDB db = new ReservationDB();
-	PersonDB personDB; //person 테이블 불러올 때:db.personDB.insert(...)
-	BusDB busDB; 
-	TicketDB ticketDB; 
-	QueueDB queueDB;
+	static PersonDB personDB = new PersonDB(); //person 테이블 불러올 때:db.personDB.insert(...)
+	static BusDB busDB = new BusDB();
+	static TicketDB ticketDB = new TicketDB();
+	static QueueDB queueDB= new QueueDB();
 	private ReservationDB() throws Exception {
 		try {			
 			Class.forName("com.mysql.cj.jdbc.Driver");
@@ -22,10 +22,6 @@ public class ReservationDB {
 			stmt = con.createStatement();
 			stmt.executeQuery("use busReservationSystem");
 			System.out.println("연결객체 획득 성공");
-			personDB = new PersonDB();
-			busDB = new BusDB();
-			ticketDB = new TicketDB();
-			queueDB = new QueueDB();
 		} catch (Exception e) {
 			throw new Exception("데이터베이스 연결 오류");
 		}		
