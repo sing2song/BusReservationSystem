@@ -22,8 +22,10 @@ public class ReservationDB {
 			stmt = con.createStatement();
 			stmt.executeQuery("use busReservationSystem");
 			System.out.println("연결객체 획득 성공");
-			personDB = new PersonDB(stmt);
-			busDB = new BusDB(stmt);
+			personDB = new PersonDB();
+			busDB = new BusDB();
+			ticketDB = new TicketDB();
+			queueDB = new QueueDB();
 		} catch (Exception e) {
 			throw new Exception("데이터베이스 연결 오류");
 		}		

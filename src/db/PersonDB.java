@@ -2,10 +2,6 @@ package db;
 import java.sql.Statement;
 
 public class PersonDB {
-	Statement stmt;
-	public PersonDB(Statement stmt) {
-		this.stmt = stmt;
-	}
 	/*QUERIES*/
 	public boolean insertPerson(String name, int balance ) {
 		try {
