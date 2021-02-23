@@ -13,7 +13,8 @@ public class ReservationDB {
 			System.out.println("드라이버 로딩 성공");
 			//"jdbc:mysql://localhost:3306?serverTimezone=UTC","root","1234");
 			String password = "password";
-			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/sampleDB?serverTimezone=UTC","root", password);
+			String url = "jdbc:mysql://localhost:3306/sampleDB?serverTimezone=UTC";//"jdbc:mysql://localhost:3306?serverTimezone=UTC"
+			con = DriverManager.getConnection(url,"root", password);
 			System.out.println("데이터베이스 연결성공");
 			stmt = con.createStatement();
 			stmt.executeQuery("use busReservationSystem");
