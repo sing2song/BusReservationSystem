@@ -26,23 +26,18 @@ public class BusDB {
 		return null;
 	}
 	/*UPDATE*/
-	public boolean update(int busid, String seats) {
+	public boolean updateSeats(int busid, String seats) {
+		return false;
+	}
+	public boolean updateCount(int busid, int i) {
 		return false;
 	}
 	/**HELPER***************************************/
 	public boolean exists(int busid) {
 		return true;
 	}
-	public boolean isFull(int busid) {
-		//if(size>= count) return true; else false;
-		return true;
-	}
 	public String getName(int busid) {
 		//select name from bus where busid = busid;
 		return null;
-	}
-	public int getPrice(int busid) {
-		//select price from bus where busid = busid;
-		return 0;
 	}
 }

@@ -9,22 +9,24 @@ public class Bus {
 	private String name;
 	private Queue<Person> queue;
 	private int count;
-	private int[] seats;
+	private int size;
+	private String seats;
 	
 	//생성자
 	public Bus(int busId, String name, int price,int size) {
 		this.busId = busId;
 		this.price = price;
 		this.name = name;
+		this.size = size;
 		queue = new LinkedList<Person>();
-		seats = new int[size];
+		//seats = new int[size];
 		count = 0;
 	}
 
 
 //getter setter
-	public int[] getSeats() {return seats;}
-	public void setSeats(int[] seats) {this.seats = seats;}
+	public String getSeats() {return seats;}
+	public void setSeats(String seats) {this.seats = seats;}
 	public int getBusId() {return busId;}
 	public void setBusId(int busId) {this.busId = busId;}
 	public int getPrice() {return price;}
@@ -40,7 +42,7 @@ public class Bus {
 	public void AddToQueue(Person p) {queue.add(p);}
 	public void RemoveFromQueue(Person p) {queue.remove(p);}
 	public boolean hasPerson(Person p) {return queue.contains(p);}
-	public boolean isFull() { return this.count >= this.seats.length;}
+	public boolean isFull() { return this.count >= this.size;}
 	public boolean Reserve(int seat, int PersonID) {
 		if(seat>=seats.length) return false;
 		if(seats[seat] == 0) {
