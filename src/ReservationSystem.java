@@ -3,6 +3,7 @@ public class ReservationSystem {
 	ReservationDB db;
 	List<Bus> buses;
 	List<Person> people;
+	
 	public ReservationSystem() throws Exception {
 		buses = new ArrayList<Bus>();
 		people = new ArrayList<Person>();

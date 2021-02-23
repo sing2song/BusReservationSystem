@@ -21,6 +21,7 @@ public class ReservationDB {
 			throw new Exception("데이터베이스 연결 오류");
 		}		
 	}
+
 	/*QUERIES*/
 	public boolean insertPerson(String name, int balance ) {
 		try {
