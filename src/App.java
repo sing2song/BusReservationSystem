@@ -4,7 +4,7 @@ import java.util.Scanner;
 public class App {
 
 	private ReservationSystem rs;
-	public App() {
+	public App() throws Exception {
 		rs = new ReservationSystem();
 		init();
 	}

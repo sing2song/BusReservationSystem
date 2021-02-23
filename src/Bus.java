@@ -44,7 +44,7 @@ public class Bus {
 		if(seat>=seats.length) return false;
 		if(seats[seat] == 0) {
 			count++;
-			seats[seat] = PersonID;
+			seats[seat] = 1;
 			return true;
 		}
 		else return false;

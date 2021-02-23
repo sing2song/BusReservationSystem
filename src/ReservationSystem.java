@@ -1,11 +1,13 @@
 import java.util.*;
 public class ReservationSystem {
+	ReservationDB db;
 	List<Bus> buses;
 	List<Person> people;
 	
-	public ReservationSystem() {
+	public ReservationSystem() throws Exception {
 		buses = new ArrayList<Bus>();
 		people = new ArrayList<Person>();
+		db = new ReservationDB();
 	}
 	/*아이디 유효성체크*/
 	public boolean checkId(int id) {
