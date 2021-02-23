@@ -2,6 +2,7 @@ import java.util.*;
 public class ReservationSystem {
 	List<Bus> buses;
 	List<Person> people;
+	
 	public ReservationSystem() {
 		buses = new ArrayList<Bus>();
 		people = new ArrayList<Person>();

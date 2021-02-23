@@ -19,5 +19,8 @@ public class ReservationDB {
 		} catch (Exception e) {
 			throw new Exception("데이터베이스 연결 오류");
 		}		
-	}	
+	}
+	
+	
+	
 }
