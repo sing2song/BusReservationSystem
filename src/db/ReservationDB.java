@@ -1,12 +1,17 @@
+package db;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.Statement;
 
 public class ReservationDB {
-	Connection con = null;
-	Statement stmt = null;
-	
-	public ReservationDB() throws Exception {
+	static Connection con = null;
+	static Statement stmt = null;
+	//ReservationDB db = new ReservationDB();
+	PersonDB personDB; //person 테이블 불러올 때:db.personDB.insert(...)
+	BusDB busDB; 
+	TicketDB ticketDB; 
+	QueueDB queueDB;
+	private ReservationDB() throws Exception {
 		try {			
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			System.out.println("드라이버 로딩 성공");
@@ -17,40 +22,13 @@ public class ReservationDB {
 			stmt = con.createStatement();
 			stmt.executeQuery("use busReservationSystem");
 			System.out.println("연결객체 획득 성공");
+			personDB = new PersonDB(stmt);
+			busDB = new BusDB(stmt);
 		} catch (Exception e) {
 			throw new Exception("데이터베이스 연결 오류");
 		}		
 	}
-
-	/*QUERIES*/
-	public boolean insertPerson(String name, int balance ) {
-		try {
-			String query = String.format("");
-			executeUpdate(query);
-			return true;
-		}
-		catch(Exception e) {
-			System.out.println("error" + e.getMessage());
-			return false;}
-	}
-	public boolean existsPerson(int id) {
-		return true;
-	}
-	public boolean updatePersonPlus(int id, int amount) {
-		
-		return false;
-	}
-	public boolean updatePersonMinus(int id, int amount) {
-		
-		return false;
-	}
-	
-	/*BUS*/
-	
-	/*PERSON*/
-	/*TICKET*/
-	/*QUEUE*/
-	private void executeUpdate(String query) throws Exception {
+	static void executeUpdate(String query) throws Exception {
 		try {
 			int rows = stmt.executeUpdate(query); 
 			if (rows<= 0) throw new Exception();

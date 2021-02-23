@@ -1,4 +1,6 @@
 import java.util.*;
+
+import db.ReservationDB;
 public class ReservationSystem {
 	ReservationDB db;
 	List<Bus> buses;
