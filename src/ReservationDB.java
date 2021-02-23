@@ -8,12 +8,10 @@ public class ReservationDB {
 	
 	public ReservationDB() throws Exception {
 		try {			
-			//Class.forName("com.mysql.jdbc.Driver");
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			System.out.println("드라이버 로딩 성공");
-			//"jdbc:mysql://localhost:3306?serverTimezone=UTC","root","1234");
 			String password = "password";
-			String url = "jdbc:mysql://localhost:3306/sampleDB?serverTimezone=UTC";//"jdbc:mysql://localhost:3306?serverTimezone=UTC"
+			String url = "jdbc:mysql://localhost:3306?serverTimezone=UTC";
 			con = DriverManager.getConnection(url,"root", password);
 			System.out.println("데이터베이스 연결성공");
 			stmt = con.createStatement();
@@ -24,7 +22,7 @@ public class ReservationDB {
 		}		
 	}
 	/*QUERIES*/
-	public boolean insertPerson() {
+	public boolean insertPerson(String name, int balance ) {
 		try {
 			String query = String.format("");
 			executeUpdate(query);
@@ -34,7 +32,20 @@ public class ReservationDB {
 			System.out.println("error" + e.getMessage());
 			return false;}
 	}
+	public boolean existsPerson(int id) {
+		return true;
+	}
+	public boolean updatePersonPlus(int id, int amount) {
+		
+		return false;
+	}
+	public boolean updatePersonMinus(int id, int amount) {
+		
+		return false;
+	}
+	
 	/*BUS*/
+	
 	/*PERSON*/
 	/*TICKET*/
 	/*QUEUE*/
