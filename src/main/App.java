@@ -1,3 +1,4 @@
+package main;
 import java.io.File;
 import java.util.Scanner;
 
@@ -8,7 +9,7 @@ public class App {
 		rs = new ReservationSystem();
 		init();
 	}
-	
+	 
 	public void init() {
 		try {
 			Scanner sc = new Scanner(new File("buses.txt"));
