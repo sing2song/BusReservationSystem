@@ -21,7 +21,7 @@ public class TicketDB {
 		try {
 			String seats, newSeats;
 			//1. insert query
-			String query = String.format("insert into ticket (personid, busid, date) values (%d,%d,now() );", personid, bus.getBusId(), seat);
+			String query = String.format("");
 			db.executeUpdate(query);
 			
 			//2. 잔액 출금 
