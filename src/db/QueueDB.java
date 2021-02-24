@@ -1,5 +1,6 @@
 package db;
 
+import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 
@@ -10,57 +11,68 @@ public class QueueDB {
 	/*CREATE*/
 	public boolean insert(int personid, int busid) {
 		try {
-			String query = String.format("");
+			String query = String.format("insert into queue (personid, busid, date) values  (%d, %d, now());", personid, busid);
 			db.executeUpdate(query);
 			return true;
 		}
 		catch(Exception e) {
-			System.out.println("error" + e.getMessage());
+			System.out.println("[insert into queue error]" + e.getMessage());
 			return false;}
 	}
+
 	/*대기중인 버스
 	 * Object[] : { queue id, busid, busname}
 	 * */
 	public ArrayList<Object[]> selectByPerson(int personid) {
 		//1. ticket table에서 버스 아이디 가져오
 		ArrayList<Object[]> res = new ArrayList<Object[]>();
-		/*
-		ResultSet rs = ReservationDB.stmt.executeQuery(query);
-		while(rs.next()) {
-			Integer queueid = rs.getInt("queueid");
-			Integer busid = rs.getInt("busid");
-			String name = ReservationDB.busDB.getName(busid);
-			Object[] array = {ticketid, busid, name, seat};
-			res.add(array);
+		try {
+			String query = String.format("Select queueid, busid from queue where personid = %d;", personid);
+			ResultSet rs = db.stmt.executeQuery(query);
+			while(rs.next()) {
+				Integer queueid = rs.getInt("queueid");
+				Integer busid = rs.getInt("busid");
+				String name = db.busDB.getName(busid);
+				Object[] array = {queueid, busid, name};
+				res.add(array);
+			}
+			return res;
 		}
-		*/
-		return res;
+		catch(Exception e) {	 
+			System.out.println("[select by person from queue error]" + e.getMessage());
+			return res;
+		}
 	}
 	/*버스의 첫번째 대기자 
 	 * int[] : { queueid, personid }
 	 * */
-	public int[] selectByBus(int personid) {
+	public int[] selectByBus(int busid) {
 		int[] res = new int[2];
 		try {
-			/*
+			String query = String.format("select personid from queue where busid = %d order by queueid;", busid);
 			ResultSet rs = db.stmt.executeQuery(query);
-			rs.next()
+			rs.next();			//대기자가 없다면 exception			
 			Integer queueid = rs.getInt("queueid");
 			Integer personid = rs.getInt("personid");
 			res[0] = queueid;
 			res[1] = personid;
-			대기자가 없다면 exception			
-			*/
 			return res;
 		}
 		catch(Exception e) {	 
+			System.out.println("[select by bus from queue error]" + e.getMessage());
 			res[0] = -1;
 			return res;
 		}
 	}
 	/*DELETE*/
 	public boolean delete(int queueid) {
-		return false;
+		try {
+			String query = String.format("delete from queue where queueid = %d;", queueid);
+			db.executeUpdate(query);
+			return true;
+		}
+		catch(Exception e) {
+			System.out.println("[delete from queue error]" + e.getMessage());
+			return false;}
 	}
-	/**HELPER***************************************/
 }
