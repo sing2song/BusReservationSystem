@@ -1,6 +1,7 @@
 
 package db;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
@@ -12,7 +13,7 @@ public class PersonDB {
 	/*CREATE*/
 	public boolean insert(String name, int balance ) {
 		try {
-			String query = String.format("insert into person(name,balance) values (%s,%d)",name,balance);
+			String query = String.format("insert into person (name,balance) values (%s,%d)",name,balance);
 			db.executeUpdate(query);
 			return true;
 		}
@@ -27,16 +28,13 @@ public class PersonDB {
 			= String.format("select * from person where personid= %d;", id);
 			ResultSet rs = db.stmt.executeQuery(query);			
 			
-			rs.next();
-			int accid = rs.getInt(1);
-			String name = rs.getString(2);
-			int balance = rs.getInt(3);
-			
-			Person person = new Person(accid,name,balance);
+			rs.next();			
+			Person person = rsToPerson(rs);
 			
 			return person;
 		}
 		catch(Exception ex) {
+			System.out.println("[select person 실패]" + ex.getMessage());
 			return null;
 		}
 	}
@@ -46,15 +44,11 @@ public class PersonDB {
 			ArrayList<Person> arr = new ArrayList<Person>();
 			String query = String.format("select * from person;");
 			ResultSet rs = db.stmt.executeQuery(query);
-			while(rs.next()) {
-				int accid = rs.getInt(1);
-				String name = rs.getString(2);
-				int balance = rs.getInt(3);
-				arr.add(new Person(accid, name, balance));
-			}
+			while(rs.next()) arr.add(rsToPerson(rs));
 			return arr;
 		}
 		catch(Exception ex) {
+			System.out.println("[select all person 실패]" + ex.getMessage());
 			return null;
 		}
 	}
@@ -62,19 +56,14 @@ public class PersonDB {
 	public boolean update(int id, int amount) {
 		try {	
 			String query;
-			if( exists(id) == true) 
-			query = String.format("update person set balance= balance+ %d where accid=%d;",
-					amount, id);
-			else
-				query = String.format("update person set balance= balance- %d where accid=%d;",
-						amount, id);
+			query = String.format("update person set balance= balance+ %d where personid=%d;",amount, id);
 			
 			db.executeUpdate(query);
 			
 			return true;
 		}
 		catch(Exception ex) {
-			System.out.println(ex.getMessage());
+			System.out.println("[update person 실패]" + ex.getMessage());
 			return false;
 		}	
 	}
@@ -83,14 +72,19 @@ public class PersonDB {
 		try {
 			String query = String.format("select * from person where personid= %d;", id);
 			ResultSet rs = db.stmt.executeQuery(query);
-			while(rs.next()) {
-				return true;
-			}
+			rs.next();
+			return true;
 		}
 		catch(Exception ex) {
+			System.out.println("[exists person 실패]" + ex.getMessage());
 			return false;
 		}
-		return false;
+	}
+	public Person rsToPerson(ResultSet rs) throws Exception {
+		int personid = rs.getInt("personid");
+		String name = rs.getString("name");
+		int balance = rs.getInt("balance");
+		return new Person(personid, name, balance);
 	}
 }
 
