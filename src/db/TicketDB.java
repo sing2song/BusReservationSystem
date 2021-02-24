@@ -21,7 +21,7 @@ public class TicketDB {
 		try {
 			String seats, newSeats;
 			//1. insert query
-			String query = String.format("");
+			String query = String.format("insert into ticket (personid, busid, date) values (%d,%d,now() );", personid, bus.getBusId());
 			db.executeUpdate(query);
 			
 			//2. 잔액 출금 
@@ -42,8 +42,9 @@ public class TicketDB {
 			return true;
 		}
 		catch(Exception e) {
-			System.out.println("error" + e.getMessage());
-			return false;}
+			System.out.println("[error insert new ticket]" + e.getMessage());
+			return false;
+		}
 	}
 	/*예약된 티켓들
 	 * 1. select(personid) --> Person
@@ -53,19 +54,24 @@ public class TicketDB {
 	public ArrayList<Object[]> select(int personid) {
 		//1. ticket table에서 버스 아이디 가져오
 		ArrayList<Object[]> res = new ArrayList<Object[]>();
-		/**QUERY**/
-		/*
-		ResultSet rs = ReservationDB.stmt.executeQuery(query);
-		while(rs.next()) {
-			Integer ticketid = rs.getInt("ticketid");
-			Integer busid = rs.getInt("busid");
-			String name = ReservationDB.busDB.getName(busid);
-			Integer seat = rs.getInt("seat");
-			Object[] array = {ticketid, busid, name, seat};//티켓 정보들 배열로 저장해 반환 
-			res.add(array);
+		try {
+			String query = String.format("select ticketid, busid, seat from ticket where personid = %d;", personid);
+			ResultSet rs = db.stmt.executeQuery(query);
+			while(rs.next()) {
+				Integer ticketid = rs.getInt("ticketid");
+				Integer busid = rs.getInt("busid");
+				String name = db.busDB.getName(busid);
+				Integer seat = rs.getInt("seat");
+				Object[] array = {ticketid, busid, name, seat};//티켓 정보들 배열로 저장해 반환 
+				res.add(array);
+			}
+			return res;
+			
 		}
-		*/
-		return res;
+		catch(Exception e) {
+			System.out.println("[error select ticket]" + e.getMessage());
+			return null;
+		}
 	}
 	/*DELETE
 	 * select(personid) --> Person
@@ -77,42 +83,46 @@ public class TicketDB {
 		int seat, busid, personid, nextpersonid, queueid, amount;
 		String seats, newSeats;
 		//1. ticket에서 seat, busid, personid 가져오기
-		seat = this.getSeat(ticketid);
-		busid = this.getBusid(ticketid);
-		personid = this.getPersonid(ticketid);
-		bus = db.busDB.select(busid);
-		//2. delete from ticket
-		
-		//3. bus update
-		seats = bus.getSeats();
-		StringBuilder sb = new StringBuilder(seats);
-		sb.replace(seat, seat+1, "0");
-		newSeats = sb.toString();
-		db.busDB.updateSeats(busid, newSeats);
-		
-		//4. queue에서 첫번째 대기자 nextpersonid 가져오기
-		int[] temp = db.queueDB.selectByBus(busid);
-		queueid = temp[0];
-		nextpersonid = temp[1];
-		//4. 대기자 있으면  
-		if(nextpersonid!= -1) {
-			db.queueDB.delete(queueid);
-			this.insert(nextpersonid, bus, seat);
+		try {
+			String query = String.format("select seat, busid, personid from ticket where ticketid = %d;", ticketid);
+			ResultSet rs = db.stmt.executeQuery(query);
+			rs.next();
+			busid = rs.getInt("busid");
+			seat = rs.getInt("seat");
+			personid = rs.getInt("personid");
+			bus = db.busDB.select(busid);
+			
+			//2. delete from ticket
+			query = String.format("delete from ticket where ticketid = %d;", ticketid);
+			db.executeUpdate(query);
+			
+			//3. bus update
+			seats = bus.getSeats();
+			StringBuilder sb = new StringBuilder(seats);
+			sb.replace(seat, seat+1, "0");
+			newSeats = sb.toString();
+			db.busDB.updateSeats(busid, newSeats);
+
+			//4. queue에서 첫번째 대기자 nextpersonid 가져오기
+			int[] temp = db.queueDB.selectByBus(busid);
+			queueid = temp[0];
+			nextpersonid = temp[1];
+			
+			//4. 대기자 있으면  
+			if(nextpersonid!= -1) {
+				db.queueDB.delete(queueid);//대기자에서 삭
+				this.insert(nextpersonid, bus, seat);//티켓 새로 만들
+			}
+			else db.busDB.updateCount(busid, -1);//버스 업뎃 
+
+			//5.잔액
+			amount = bus.getPrice();
+			db.personDB.update(personid, amount);
+			return true;
 		}
-		else db.busDB.updateCount(busid, -1);
-		//5.잔액
-		amount = bus.getPrice();
-		db.personDB.update(personid, amount);
-		return false;
-	}
-	/**HELPER***************************************/
-	public int getSeat(int ticketid) {
-		return 0;
-	}
-	public int getPersonid(int ticketid) {
-		return 0;
-	}
-	public int getBusid(int ticketid) {
-		return 0;
+		catch(Exception e) {
+			System.out.println("[error delete ticket] "+ e.getMessage());
+			return false;
+		}
 	}
 }
