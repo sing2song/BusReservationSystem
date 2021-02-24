@@ -1,4 +1,5 @@
 package model;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -8,8 +9,8 @@ public class Person {
 	private int id;//0이상이여야한다
 	private String name;
 	private int balance;
-	private Map<Integer, Integer> tickets; //버스ID, 좌석
-	private Set<Bus> queuedBuses;
+	private ArrayList<Object[]> tickets; //	 Object[] : ticketid, busid, name, seat
+	private ArrayList<Object[]>queues; // Object[] : { queue id, busid, busname}
 	//한사람이 한 자리 예약할 수 있다는 가정
 
 	//생성자
@@ -17,43 +18,39 @@ public class Person {
 		this.id=id;
 		this.name=name;
 		this.balance=balance;
-		tickets = new HashMap<Integer, Integer>();
-		queuedBuses = new HashSet<Bus>();
+		tickets = new ArrayList<Object[]>();
+		queues = new ArrayList<Object[]>();
 	}
 	
 	//getter
 	public int getId() {return id;}
 	public String getName() {return name;}
 	public int getBalance() {return balance;}
-	public Map<Integer, Integer> getTickets() {return tickets;}
-	public Set<Bus> getQueuedBuses() {return this.queuedBuses;}
-	
-	//기능메서드
-	public boolean AddTicket(Bus bus, int seat) {
-		tickets.put(bus.getBusId(), seat);
-		this.balance -= bus.getPrice();
-		return true;
+	public ArrayList<Object[]> getTickets() {return tickets;}
+	public ArrayList<Object[]> getQueuedBuses() {return this.queues;}
+	public void setQueues(ArrayList<Object[]> q) {this.queues = q;}
+	public void print() {
+		System.out.println("-----------------------------------------------------------------");
+		System.out.println("[잔액] : " + this.balance);
+		MyTickets();
+		MyQueues();
+		System.out.println("-----------------------------------------------------------------");
 	}
-	public boolean hasTicket(int busid) {return this.tickets.containsKey(busid);}
-	public int CancelTicket(Bus bus) {
-		if(hasTicket(bus.getBusId())) this.balance += bus.getPrice();
-		return tickets.remove(bus.getBusId());
-	}
-	
-	public void addQueueBuses(Bus bus) {this.queuedBuses.add(bus);}
-	public void removeQueueBuses(Bus bus) {this.queuedBuses.remove(bus);}
-	
+	//기능메서드	  
+	//Object[] : ticketid, busid, name, seat
 	public void MyTickets() {
 		System.out.println("[잔액] : " + this.balance);
-		if(!tickets.isEmpty()) {
-			System.out.println("[구매한 티켓] ");
-			for( int val :tickets.keySet()) System.out.printf("> [%d], 좌석번호: %d\n", val, tickets.get(val));
-		}
+		if(this.tickets.size() == 0) return;
+		System.out.println("[구매한 티켓] ");
+		for( Object[] o : this.tickets) System.out.printf("> [%d], 버스ID: %d, 버스이름: %s, 좌석번호: %d\n",
+				o[0], (int) o[1], o[2], o[3]);
 	}
-	public void MyQueue() {
-		if(this.queuedBuses.size() == 0) return;
+	// Object[] : { queue id, busid, busname}
+	public void MyQueues() {
+		if(this.queues.size() == 0) return;
 		System.out.print("[대기중인버스] : ");
-		for (Bus b: this.queuedBuses) System.out.printf("[%d] %s\t", b.getBusId(), b.getName()); 
+		for( Object[] o : this.queues) System.out.printf("> [%d], 버스ID: %d, 버스이름: %s\t",
+				o[0], (int) o[1], o[2]);
 		System.out.println();
 	}
 	

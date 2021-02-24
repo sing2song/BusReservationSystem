@@ -16,7 +16,9 @@ public class QueueDB {
 			System.out.println("error" + e.getMessage());
 			return false;}
 	}
-	/*대기중인 버스*/
+	/*대기중인 버스
+	 * Object[] : { queue id, busid, busname, seat}
+	 * */
 	public ArrayList<Object[]> selectByPerson(int personid) {
 		//1. ticket table에서 버스 아이디 가져오
 		ArrayList<Object[]> res = new ArrayList<Object[]>();
@@ -33,14 +35,19 @@ public class QueueDB {
 		*/
 		return res;
 	}
-	/*버스의 첫번째 대기자 */
+	/*버스의 첫번째 대기자 
+	 * int[] : { queueid, personid }
+	 * */
 	public int[] selectByBus(int personid) {
 		int[] res = new int[2];
 		try {
 			/*
 			ResultSet rs = ReservationDB.stmt.executeQuery(query);
 			rs.next()
+			Integer queueid = rs.getInt("queueid");
 			Integer personid = rs.getInt("personid");
+			res[0] = queueid;
+			res[1] = personid;
 			대기자가 없다면 exception			
 			*/
 			return res;

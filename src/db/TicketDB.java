@@ -46,6 +46,7 @@ public class TicketDB {
 	/*예약된 티켓들
 	 * 1. select(personid) --> Person
 	 * 2. select(personid) --> ticketid, busid, bus name, seat #
+	 * Object[] : ticketid, busid, name, seat
 	 * */
 	public ArrayList<Object[]> select(int personid) {
 		//1. ticket table에서 버스 아이디 가져오
@@ -89,8 +90,8 @@ public class TicketDB {
 		
 		//4. queue에서 첫번째 대기자 nextpersonid 가져오기
 		int[] temp = ReservationDB.queueDB.selectByBus(busid);
-		nextpersonid = temp[0];
-		queueid = temp[1];//대기
+		queueid = temp[0];
+		nextpersonid = temp[1];
 		//4. 대기자 있으면  
 		if(nextpersonid!= -1) {
 			ReservationDB.queueDB.delete(queueid);
