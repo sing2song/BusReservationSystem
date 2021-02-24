@@ -74,7 +74,7 @@ public class ReservationSystem {
 			printBuses();//db 에서 select all buses + 출력
 			person.print();//본인 티켓/대기 상황 출력 
 			bus = getBus(in);
-			//중복 예약/대 허락....
+			//중복 예약/대기 허락....
 			if(bus.isFull()) {//대기하기 
 				System.out.print("대기실에 입장하시겠습니까? y/n >> ");
 				if(read(in).equals("y")) db.queueDB.insert(person.getId(), bus.getBusId());
@@ -83,10 +83,7 @@ public class ReservationSystem {
 			}
 			//예약 진행 
 			//잔액
-			if(person.getBalance() < bus.getPrice()) {
-				System.out.println("잔액이 부족합니다. ");
-				return;
-			} 
+			if(person.getBalance() < bus.getPrice()) throw new Exception("잔액이 부족합니다.");
 			bus.PrintSeats();//좌석 출력
 			//좌석 선택 
 			System.out.print("좌석 번호를 선택해주세요: >> ");
@@ -95,7 +92,7 @@ public class ReservationSystem {
 				if(db.ticketDB.insert(person.getId(), bus, seat-1)) {
 					System.out.printf("[%d] %s 버스, %d 좌석 예약 성공!\n", bus.getBusId(), bus.getName(), seat);
 				}
-				else throw new Exception("");
+				else throw new Exception();
 			}
 			catch (Exception e) {throw new Exception("잘못된 자리 선택입니다.");}
 		}
