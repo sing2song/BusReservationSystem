@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import model.Person;
 public class PersonDB {
 	public ReservationDB db;
-	public Statement stmt = null;
 	public PersonDB(ReservationDB db) { this.db = db;}
 	/*QUERIES***************************************************/
 	/*CREATE*/
@@ -25,7 +24,7 @@ public class PersonDB {
 		try {
 			String query 
 			= String.format("select * from person where personid= %d;", id);
-			ResultSet rs = stmt.executeQuery(query);			
+			ResultSet rs = db.stmt.executeQuery(query);			
 			
 			rs.next();
 			int accid = rs.getInt(1);
@@ -46,7 +45,7 @@ public class PersonDB {
 			ArrayList<Person> arr = new ArrayList<Person>();
 			String query 
 			= String.format("select * from person ;");
-			ResultSet rs = stmt.executeQuery(query);
+			ResultSet rs = db.stmt.executeQuery(query);
 			while(rs.next()) {
 				int accid = rs.getInt(1);
 				String name = rs.getString(2);
@@ -83,7 +82,7 @@ public class PersonDB {
 	public boolean exists(int id) {
 		try {
 			String query = String.format("select * from person where personid= %d;", id);
-			ResultSet rs = stmt.executeQuery(query);
+			ResultSet rs = db.stmt.executeQuery(query);
 			while(rs.next()) {
 				return true;
 			}
