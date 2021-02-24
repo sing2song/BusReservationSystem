@@ -12,10 +12,11 @@ public class ReservationDB {
 	public QueueDB queueDB;
 	public ReservationDB() throws Exception {
 		try {			
-			Class.forName("com.mysql.cj.jdbc.Driver");
+			Class.forName("com.mysql.jdbc.Driver");
 			System.out.println("드라이버 로딩 성공");
-			String password = "password";
-			String url = "jdbc:mysql://localhost:3306/busReservationSystem?serverTimezone=UTC";
+			String password = "1234";
+			//String url = "jdbc:mysql://localhost:3306/busReservationSystem?serverTimezone=UTC";
+			String url = "jdbc:mysql://localhost:3306?serverTimezone=UTC";
 			con = DriverManager.getConnection(url,"root", password);
 			System.out.println("데이터베이스 연결성공");
 			stmt = con.createStatement();
