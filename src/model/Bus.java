@@ -7,7 +7,6 @@ public class Bus {
 	private int busId;
 	private int price;
 	private String name;
-	private Queue<Person> queue;
 	private int count;
 	private int size;
 	private String seats;
@@ -18,7 +17,6 @@ public class Bus {
 		this.price = price;
 		this.name = name;
 		this.size = size;
-		queue = new LinkedList<Person>();
 		//seats = new int[size];
 		count = 0;
 	}
@@ -33,50 +31,24 @@ public class Bus {
 	public void setPrice(int price) {this.price = price;}
 	public String getName() {return name;}
 	public void setName(String name) {this.name = name;}
-	public Queue<Person> getQueue() {return queue;}
-	public void setQueue(Queue<Person> queue) {this.queue = queue;}
 	public int getCount() {return count;}
 	public void setCount(int count) {this.count = count;}
 
 	//메소드
-	public void AddToQueue(Person p) {queue.add(p);}
-	public void RemoveFromQueue(Person p) {queue.remove(p);}
-	public boolean hasPerson(Person p) {return queue.contains(p);}
 	public boolean isFull() { return this.count >= this.size;}
-	public boolean Reserve(int seat, int PersonID) {
-		if(seat>=seats.length) return false;
-		if(seats[seat] == 0) {
-			count++;
-			seats[seat] = 1;
-			return true;
-		}
-		else return false;
-	}
-	
-	public int Cancel(int seat) {
-		seats[seat] =0;
-		if(queue.size() >0) {
-			Person person = queue.remove();
-			seats[seat] = person.getId();
-			 person.AddTicket(this, seat+1);
-		}
-		else count --;
-		
-		return seats[seat];
-	}
+
 	public void PrintSeats() {
-		for (int i = 0 ; i < seats.length; i ++) {
+		char[] chars = seats.toCharArray();
+		for (int i = 0 ; i < chars.length; i ++) {
 			System.out.printf("[%d] ", i+1);
-			if(seats[i] == 0) System.out.println("O");
+			if(chars[i] == 0) System.out.println("O");
 			else System.out.println("X");
 		}
 	}
 	public void PrintBus() {
 		System.out.printf("[%d] ", busId);
 		System.out.printf("%s ", name);
-		System.out.print( count == seats.length ? "만석!": "" );
-		System.out.print( queue.size() > 0 ? " 대기자들: " + this.queue.size() + " 명\n": "\n" );
-		
+		System.out.print( count == size ? "만석!\n": "\n" );		
 	}
 
 }
