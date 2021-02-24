@@ -27,7 +27,7 @@ public class QueueDB {
 		//1. ticket table에서 버스 아이디 가져오
 		ArrayList<Object[]> res = new ArrayList<Object[]>();
 		try {
-			String query = String.format("Select queueid, busid from queue where personid = %d;", personid);
+			String query = String.format("select queueid, busid from queue where personid = %d;", personid);
 			ResultSet rs = db.stmt.executeQuery(query);
 			while(rs.next()) {
 				Integer queueid = rs.getInt("queueid");
@@ -49,7 +49,7 @@ public class QueueDB {
 	public int[] selectByBus(int busid) {
 		int[] res = new int[2];
 		try {
-			String query = String.format("select personid from queue where busid = %d order by queueid;", busid);
+			String query = String.format("select queueid, personid from queue where busid = %d order by queueid;", busid);
 			ResultSet rs = db.stmt.executeQuery(query);
 			rs.next();			//대기자가 없다면 exception			
 			Integer queueid = rs.getInt("queueid");
@@ -59,7 +59,7 @@ public class QueueDB {
 			return res;
 		}
 		catch(Exception e) {	 
-			System.out.println("[select by bus from queue error]" + e.getMessage());
+			System.out.println("[no person in queue]" + e.getMessage());
 			res[0] = -1;
 			return res;
 		}

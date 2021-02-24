@@ -15,13 +15,16 @@ public class ReservationDB {
 		try {			
 			Class.forName("com.mysql.jdbc.Driver");
 			System.out.println("드라이버 로딩 성공");
-			String password = "1234";
-			//String url = "jdbc:mysql://localhost:3306/busReservationSystem?serverTimezone=UTC";
-			String url = "jdbc:mysql://localhost:3306?serverTimezone=UTC";
+			/**********************************************************/
+			//String url = "jdbc:mysql://localhost:3306?serverTimezone=UTC";
+			//String password = "1234";
+			/*정선s configuration*****************************************/
+			String url = "jdbc:mysql://localhost:3306/busReservationSystem?serverTimezone=UTC";
+			String password = "password";
+			/**********************************************************/
 			con = DriverManager.getConnection(url,"root", password);
 			System.out.println("데이터베이스 연결성공");
 			stmt = con.createStatement();
-			//stmt.executeQuery("use busReservationSystem");
 			System.out.println("연결객체 획득 성공");
 			/*테이블 쿼리 클래스들*/
 			personDB = new PersonDB(this);

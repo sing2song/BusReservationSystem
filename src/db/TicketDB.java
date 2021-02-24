@@ -20,22 +20,22 @@ public class TicketDB {
 	public boolean insert(int personid, Bus bus, int seat) {
 		try {
 			String seats, newSeats;
-			//1. insert query
-			String query = String.format("insert into ticket (personid, busid, date) values (%d,%d,now() );", personid, bus.getBusId());
-			db.executeUpdate(query);
-			
-			//2. 잔액 출금 
-			db.personDB.update(personid, - bus.getPrice());
-			
-			//3. bus update seats
-			seats = bus.getSeats();
+			//1. bus update seats
+			seats = bus.getSeats();//원래 자리 표시 
 			if(seats.charAt(seat) == 0) {
 				StringBuilder sb = new StringBuilder(seats);
-				sb.replace(seat, seat+1, "1");
+				sb.replace(seat, seat+1, "1");//에약됨 표
 				newSeats = sb.toString();
-				db.busDB.updateSeats(bus.getBusId(), newSeats);
+				db.busDB.updateSeats(bus.getBusId(), newSeats);//엎뎃 
 			}
 			else throw new Exception("이미 예약된 자리입니다.");
+			//2. 잔액 출금 
+			db.personDB.update(personid, - bus.getPrice());//- price 잔액에서 빼기 
+			
+			//3. insert query
+			String query = String.format("insert into ticket (personid, busid, date, seat) values (%d,%d,now(), %d );",
+					personid, bus.getBusId(), seat);
+			db.executeUpdate(query);
 			
 			//4. bus update count
 			db.busDB.updateCount(bus.getBusId(), 1);
@@ -82,15 +82,15 @@ public class TicketDB {
 		Bus bus; 
 		int seat, busid, personid, nextpersonid, queueid, amount;
 		String seats, newSeats;
-		//1. ticket에서 seat, busid, personid 가져오기
 		try {
+			//1. ticket에서 seat, busid, personid 가져오기
 			String query = String.format("select seat, busid, personid from ticket where ticketid = %d;", ticketid);
 			ResultSet rs = db.stmt.executeQuery(query);
 			rs.next();
-			busid = rs.getInt("busid");
-			seat = rs.getInt("seat");
-			personid = rs.getInt("personid");
-			bus = db.busDB.select(busid);
+			busid = rs.getInt("busid");//버스 id
+			seat = rs.getInt("seat");//그 좌석 
+			personid = rs.getInt("personid");//예약 취소하는 사
+			bus = db.busDB.select(busid);//버스 객체 
 			
 			//2. delete from ticket
 			query = String.format("delete from ticket where ticketid = %d;", ticketid);
@@ -109,15 +109,14 @@ public class TicketDB {
 			nextpersonid = temp[1];
 			
 			//4. 대기자 있으면  
-			if(nextpersonid!= -1) {
-				db.queueDB.delete(queueid);//대기자에서 삭
-				this.insert(nextpersonid, bus, seat);//티켓 새로 만들
+			if(queueid!= -1) {
+				db.queueDB.delete(queueid);//대기자에서 삭제 
+				insert(nextpersonid, bus, seat);//티켓 새로 만들
 			}
 			else db.busDB.updateCount(busid, -1);//버스 업뎃 
 
 			//5.잔액
-			amount = bus.getPrice();
-			db.personDB.update(personid, amount);
+			db.personDB.update(personid, bus.getPrice());//+ price 잔액에서 더하기 
 			return true;
 		}
 		catch(Exception e) {

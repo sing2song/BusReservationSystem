@@ -6,8 +6,13 @@ import model.Bus;
 import model.Person;
 public class ReservationSystem {
 	ReservationDB db;
-	public ReservationSystem() throws Exception {
-		db = new ReservationDB();
+	public ReservationSystem(){
+		try {
+			db = new ReservationDB();
+		}
+		catch(Exception e) {
+			System.out.println(e.getMessage());
+		}
 	}
 	/*file io*/
 	public void insertBus(String name, int price, int size) {

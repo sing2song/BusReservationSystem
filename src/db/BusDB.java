@@ -23,7 +23,8 @@ public class BusDB {
 	public boolean insert(String name, int price, String seats, int size) {
 		try {
 			String query = String.format(
-					"insert into bus (name, price, seats, size) values (%s, %d, %s, %d);", name, price, seats, size);
+					"insert into bus (name, price, seats, size) values (\"%s\", %d, \"%s\", %d);", 
+					name, price, seats, size);
 			db.executeUpdate(query);
 			return true;
 		} catch (Exception e) {
@@ -72,7 +73,7 @@ public class BusDB {
 		try {
 			String query;
 			if (exists(busid) == true) {
-				query = String.format("update bus set seats= %s where busid=%d;", seats, busid);
+				query = String.format("update bus set seats= \"%s\" where busid=%d;", seats, busid);
 				db.executeUpdate(query);
 			}
 			return true;
@@ -86,7 +87,7 @@ public class BusDB {
 		try {
 			String query;
 			if (exists(busid) == true) {
-				query = String.format("update bus set count= %d where busid=%d;", i, busid);
+				query = String.format("update bus set count=count+%d where busid=%d;", i, busid);
 				db.executeUpdate(query);
 			}
 			return true;

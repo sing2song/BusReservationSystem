@@ -13,7 +13,7 @@ public class PersonDB {
 	/*CREATE*/
 	public boolean insert(String name, int balance ) {
 		try {
-			String query = String.format("insert into person (name,balance) values (%s,%d)",name,balance);
+			String query = String.format("insert into person (name,balance) values (\"%s\",%d)",name,balance);
 			db.executeUpdate(query);
 			return true;
 		}
@@ -56,7 +56,7 @@ public class PersonDB {
 	public boolean update(int id, int amount) {
 		try {	
 			String query;
-			query = String.format("update person set balance= balance+ %d where personid=%d;",amount, id);
+			query = String.format("update person set balance= balance+ %d where personid=%d and balance+%d>=0;",amount, id, amount);
 			
 			db.executeUpdate(query);
 			
