@@ -54,7 +54,12 @@ public class BusDB {
 	}
 	/*READ*/
 	public ArrayList<Bus> selectAll() {
+		try {
+		String query = "select * from account;";
+		PreparedStatement sment = db.con.prepareStatement(query);
+		}catch(Exception e) {
 		return null;
+		}
 	}
 	/*UPDATE*/
 	public boolean updateSeats(int busid, String seats) {
