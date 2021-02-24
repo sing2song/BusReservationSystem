@@ -29,6 +29,7 @@ public class Person {
 	public ArrayList<Object[]> getTickets() {return tickets;}
 	public ArrayList<Object[]> getQueuedBuses() {return this.queues;}
 	public void setQueues(ArrayList<Object[]> q) {this.queues = q;}
+	public void setTickets(ArrayList<Object[]> t) { this.tickets = t;}
 	public void print() {
 		System.out.println("-----------------------------------------------------------------");
 		System.out.println("[잔액] : " + this.balance);

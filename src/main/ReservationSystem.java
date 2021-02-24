@@ -2,6 +2,8 @@ package main;
 import java.util.*;
 
 import db.ReservationDB;
+import model.Bus;
+import model.Person;
 public class ReservationSystem {
 	ReservationDB db;
 	List<Bus> buses;
@@ -12,23 +14,34 @@ public class ReservationSystem {
 		people = new ArrayList<Person>();
 		db = new ReservationDB();
 	}
-	/*아이디 유효성체크*/
-	public boolean checkId(int id) {
-		return id<=people.size();
-	}
 	
 	/*file io*/
 	public void insertBus(String name, int price, int size) {
-		//name, price, size
-		buses.add(new Bus(buses.size()+1, name, price, size));
+		try {
+			String seats;
+			char[] chars = new char[size];
+			seats = new String(chars);
+			Arrays.fill(chars, '0');
+			if(!db.busDB.insert(name, price, seats, size)) throw new Exception();
+		}
+		catch(Exception e) {
+			System.out.print("입력 오류가 있었습니다");
+		}
 	}
 	/*1*/
 	public void insertBus(Scanner in) {
-		//name, price, size
 		System.out.print("[버스이름 티켓값 좌석수]을 입력해주세요 : >> ");
 		try {
 			String[] arr = read(in).split(" ");
-			buses.add(new Bus(buses.size()+1, arr[0], Integer.parseInt(arr[1]), Integer.parseInt(arr[2])));
+			int price, size;
+			String name, seats;
+			price = Integer.parseInt(arr[1]);
+			size = Integer.parseInt(arr[2]);
+			char[] chars = new char[size];
+			seats = new String(chars);
+			name = arr[0];
+			Arrays.fill(chars, '0');
+			if(!db.busDB.insert(name, price, seats, size)) throw new Exception();
 		}
 		catch(Exception e) {
 			System.out.print("입력 오류가 있었습니다");
@@ -37,8 +50,12 @@ public class ReservationSystem {
 	}
 	/*file io*/
 	public void insertPerson(String name, int balance) {
-		//name, balance, 
-		people.add(new Person(people.size()+1, name, balance));
+		try {
+			if(!db.personDB.insert(name, balance)) throw new Exception();
+		}
+		catch(Exception e) {
+			System.out.print("입력 오류가 있었습니다");
+		}
 	}
 	/*2*/
 	public void insertPerson(Scanner in) {
@@ -46,7 +63,9 @@ public class ReservationSystem {
 		System.out.print("[이름 잔액]을 입력해주세요 : >> ");
 		try {
 			String[] arr = read(in).split(" ");
-			people.add( new Person(people.size()+1, arr[0], Integer.parseInt(arr[1]) ) );	
+			String name = arr[0];
+			int balance = Integer.parseInt(arr[1]);
+			if(!db.personDB.insert(name, balance)) throw new Exception();
 		}
 		catch(Exception e) {
 			System.out.print("입력 오류가 있었습니다");
@@ -56,49 +75,40 @@ public class ReservationSystem {
 	/*3*/
 	public void makeReservation(Scanner in) {
 		Bus bus; Person person;
-		System.out.print("id 를 입력해주세요 : >> ");
-		person = getPerson(in);
-		if(person == null) return;
-		printBuses(buses);//버스 이름 출력
-		person.MyTickets();//본인 티켓 상황 출력 
-		System.out.print("버스를 선택해주세요 >> ");
-		//bus id validity check
-		bus = getBus(in);
-		if(bus == null) return;
-		//중복 
-		if(person.hasTicket(bus.getBusId())) {
-			System.out.printf("중복 예약입니다.");
-			return;
-		}
-		else if(bus.hasPerson(person)) {
-			System.out.println("이미 대기 중 입니다. ");
-			return;
-		}
-		//만석 
-		if(bus.isFull()) {
-			System.out.print("대기실에 입장하시겠습니까? y/n >> ");
-			if(read(in).equals("y")) {
-				bus.AddToQueue(person);
-				person.addQueueBuses(bus);
-			}
-			return;
-		}
-		//잔액
-		if(person.getBalance() < bus.getPrice()) {
-			System.out.println("잔액이 부족합니다. ");
-			return;
-		}
-		bus.PrintSeats();
-		System.out.print("좌석 번호를 선택해주세요: >> ");
 		try {
-			int seat = Integer.parseInt(read(in));
-			if(bus.Reserve(seat-1, person.getId())) {//bus.seats[i-1] --> i: 좌석번호 
-				person.AddTicket(bus, seat);
-				System.out.printf("[%d] %s 버스, %d 좌석 예약 성공!\n", bus.getBusId(), bus.getName(), seat);
+			person = getPerson(in);//db에서 person 객체로 불러오기
+			printBuses();//db 에서 select all buses + 출력
+			person.print();//본인 티켓/대기 상황 출력 
+			bus = getBus(in);
+			//중복 예약/대 허락....
+			if(bus.isFull()) {//대기하기 
+				System.out.print("대기실에 입장하시겠습니까? y/n >> ");
+				if(read(in).equals("y")) db.queueDB.insert(person.getId(), bus.getBusId());
+				else System.out.println("메뉴로 돌아갑니다.");
+				return;
 			}
-			else throw new Exception();
+			//예약 진행 
+			//잔액
+			if(person.getBalance() < bus.getPrice()) {
+				System.out.println("잔액이 부족합니다. ");
+				return;
+			} 
+			bus.PrintSeats();//좌석 출력
+			//좌석 선택 
+			System.out.print("좌석 번호를 선택해주세요: >> ");
+			try {
+				int seat = Integer.parseInt(read(in));
+				if(db.ticketDB.insert(person.getId(), bus, seat-1)) {
+					System.out.printf("[%d] %s 버스, %d 좌석 예약 성공!\n", bus.getBusId(), bus.getName(), seat);
+				}
+				else throw new Exception("");
+			}
+			catch (Exception e) {throw new Exception("잘못된 자리 선택입니다.");}
 		}
-		catch (Exception e) {System.out.println("예약 오류!");}
+		catch(Exception e) {
+			System.out.println(e.getMessage());
+		}
+		/********************************************************/
 	}
 	/*4*/
 	public void seeDetails(Scanner in) {
@@ -150,29 +160,36 @@ public class ReservationSystem {
 		
 	}
 	/*HELPER METHODS*/
-	public Person getPerson(Scanner in) {
+	public Person getPerson(Scanner in) throws Exception {
 		try {
+			System.out.print("id 를 입력해주세요 : >> ");
 			int personid = Integer.parseInt(read(in));
-			return this.people.get(personid-1);
+			if(!this.db.personDB.exists(personid)) throw new Exception();
+			Person p = this.db.personDB.select(personid);
+			p.setQueues(this.db.queueDB.selectByPerson(personid));//get my queues
+			p.setTickets(this.db.ticketDB.select(personid));//get my tickets
+			return p;
 		}
 		catch(Exception e) {
-			System.out.println("존재하지 않는 id입니다.");
-			return null;
+			throw new Exception("존재하지 않는 id입니다.");
 		}
 	}
-	public Bus getBus(Scanner in) {
+	public Bus getBus(Scanner in) throws Exception {
 		try {
+			System.out.print("버스 id 를 입력해주세요 : >> ");
 			int busid = Integer.parseInt(read(in));
-			return this.buses.get(busid-1);
+			if(!this.db.busDB.exists(busid)) throw new Exception();
+			return this.db.busDB.select(busid);
 		}
 		catch(Exception e) {
-			System.out.println("존재하지 않는 버스 입니다.");
-			return null;
+			throw new Exception("존재하지 않는 버스 id 입니다.");
 		}
 	}
-	public void printBuses(List<Bus> l) {
-		for (Bus o : l) {
-			o.PrintBus();
+	
+	public void printBuses() {
+		ArrayList<Bus> buses = db.busDB.selectAll();
+		for (Bus b : buses) {
+			b.PrintBus();
 		}
 	}
 	public String read(Scanner in) {

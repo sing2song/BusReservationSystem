@@ -4,14 +4,13 @@ import java.sql.DriverManager;
 import java.sql.Statement;
 
 public class ReservationDB {
-	static Connection con = null;
-	static Statement stmt = null;
-	//ReservationDB db = new ReservationDB();
-	static PersonDB personDB = new PersonDB(); //person 테이블 불러올 때:db.personDB.insert(...)
-	static BusDB busDB = new BusDB();
-	static TicketDB ticketDB = new TicketDB();
-	static QueueDB queueDB= new QueueDB();
-	private ReservationDB() throws Exception {
+	Connection con = null;
+	Statement stmt = null;
+	public PersonDB personDB = new PersonDB(this); //person 테이블 불러올 때:db.personDB.insert(...)
+	public BusDB busDB = new BusDB(this);
+	public TicketDB ticketDB = new TicketDB(this);
+	public QueueDB queueDB= new QueueDB(this);
+	public ReservationDB() throws Exception {
 		try {			
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			System.out.println("드라이버 로딩 성공");
@@ -26,7 +25,7 @@ public class ReservationDB {
 			throw new Exception("데이터베이스 연결 오류");
 		}		
 	}
-	static void executeUpdate(String query) throws Exception {
+	void executeUpdate(String query) throws Exception {
 		try {
 			int rows = stmt.executeUpdate(query); 
 			if (rows<= 0) throw new Exception();

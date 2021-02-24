@@ -4,12 +4,14 @@ import java.util.ArrayList;
 
 import model.Person;
 public class PersonDB {
+	public ReservationDB db;
+	public PersonDB(ReservationDB db) { this.db = db;}
 	/*QUERIES***************************************************/
 	/*CREATE*/
 	public boolean insert(String name, int balance ) {
 		try {
 			String query = String.format("");
-			ReservationDB.executeUpdate(query);
+			db.executeUpdate(query);
 			return true;
 		}
 		catch(Exception e) {

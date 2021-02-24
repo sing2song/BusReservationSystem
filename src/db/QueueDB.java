@@ -4,12 +4,14 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 public class QueueDB {
+	public ReservationDB db;
+	public QueueDB(ReservationDB db) { this.db = db;}
 	/*QUERIES***************************************************/
 	/*CREATE*/
 	public boolean insert(int personid, int busid) {
 		try {
 			String query = String.format("");
-			ReservationDB.executeUpdate(query);
+			db.executeUpdate(query);
 			return true;
 		}
 		catch(Exception e) {
@@ -41,7 +43,7 @@ public class QueueDB {
 		int[] res = new int[2];
 		try {
 			/*
-			ResultSet rs = ReservationDB.stmt.executeQuery(query);
+			ResultSet rs = db.stmt.executeQuery(query);
 			rs.next()
 			Integer queueid = rs.getInt("queueid");
 			Integer personid = rs.getInt("personid");

@@ -6,12 +6,14 @@ import java.util.ArrayList;
 import model.Bus;
 
 public class BusDB {
+	public ReservationDB db;
+	public BusDB(ReservationDB db) { this.db = db;}
 	/*QUERIES***************************************************/
 	/*CREATE*/
 	public boolean insert(String name, int price, String seats, int size) {
 		try {
 			String query = String.format("");
-			ReservationDB.executeUpdate(query);
+			db.executeUpdate(query);
 			return true;
 		}
 		catch(Exception e) {
