@@ -119,6 +119,7 @@ public class BusDB {
 			}
 		}
 		catch(Exception ex) {
+			System.out.println("[error busid exists from bus]: " +ex.getMessage());
 			return false;
 		}
 		return false;
@@ -127,13 +128,13 @@ public class BusDB {
 
 	public String getName(int busid) {
 		try {
-			String query = String.format("select name from bus where bus= %d;", busid);
+			String query = String.format("select name from bus where busid = %d;", busid);
 			ResultSet rs = db.stmt.executeQuery(query);
-			while(rs.next()) {
-				return getName(busid);
-			}
+			rs.next();
+			return rs.getString("name");
 		}
 		catch(Exception ex) {
+			System.out.println("[error get name from bus]: " +ex.getMessage());
 			return null;
 		}
 	}
