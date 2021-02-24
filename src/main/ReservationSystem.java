@@ -19,7 +19,7 @@ public class ReservationSystem {
 			if(!db.busDB.insert(name, price, seats, size)) throw new Exception();
 		}
 		catch(Exception e) {
-			System.out.print("입력 오류가 있었습니다");
+			System.out.print("insert bus 입력 오류가 있었습니다");
 		}
 	}
 	/*1*/
@@ -38,7 +38,7 @@ public class ReservationSystem {
 			if(!db.busDB.insert(name, price, seats, size)) throw new Exception();
 		}
 		catch(Exception e) {
-			System.out.print("입력 오류가 있었습니다");
+			System.out.print("insert bus 입력 오류가 있었습니다");
 		}
 		
 	}
@@ -48,7 +48,7 @@ public class ReservationSystem {
 			if(!db.personDB.insert(name, balance)) throw new Exception();
 		}
 		catch(Exception e) {
-			System.out.print("입력 오류가 있었습니다");
+			System.out.print("insert person 입력 오류가 있었습니다");
 		}
 	}
 	/*2*/
@@ -62,7 +62,7 @@ public class ReservationSystem {
 			if(!db.personDB.insert(name, balance)) throw new Exception();
 		}
 		catch(Exception e) {
-			System.out.print("입력 오류가 있었습니다");
+			System.out.print("insert person 입력 오류가 있었습니다");
 		}
 		
 	}
