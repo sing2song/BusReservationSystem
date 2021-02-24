@@ -15,6 +15,7 @@ public class ReservationDB {
 			Class.forName("com.mysql.jdbc.Driver");
 			System.out.println("드라이버 로딩 성공");
 			String password = "ssong";
+			//String password = "password";
 			//String url = "jdbc:mysql://localhost:3306/busReservationSystem?serverTimezone=UTC";
 			String url = "jdbc:mysql://localhost:3306?serverTimezone=UTC";
 			con = DriverManager.getConnection(url,"root", password);
