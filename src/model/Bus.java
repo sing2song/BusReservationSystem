@@ -20,6 +20,18 @@ public class Bus {
 		//seats = new int[size];
 		count = 0;
 	}
+	
+	
+	public Bus(int busId, int price, String name, int count, int size, String seats) {
+		this.busId = busId;
+		this.price = price;
+		this.name = name;
+		this.size = size;
+		this.seats = seats;
+		count = 0;
+	}
+
+
 
 
 //getter setter
