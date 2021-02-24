@@ -26,10 +26,10 @@ public class PersonDB {
 		try {
 			String query 
 			= String.format("select * from person where personid= %d;", id);
-			ResultSet rs = db.stmt.executeQuery(query);			
-			
-			rs.next();			
-			Person person = rsToPerson(rs);
+			db.rs = db.stmt.executeQuery(query);			
+	
+			db.rs.next();			
+			Person person = rsToPerson(db.rs);
 			
 			return person;
 		}
@@ -43,8 +43,9 @@ public class PersonDB {
 		try {
 			ArrayList<Person> arr = new ArrayList<Person>();
 			String query = String.format("select * from person;");
-			ResultSet rs = db.stmt.executeQuery(query);
-			while(rs.next()) arr.add(rsToPerson(rs));
+			db.rs = db.stmt.executeQuery(query);
+			
+			while(db.rs.next()) arr.add(rsToPerson(db.rs));
 			return arr;
 		}
 		catch(Exception ex) {
@@ -57,9 +58,7 @@ public class PersonDB {
 		try {	
 			String query;
 			query = String.format("update person set balance= balance+ %d where personid=%d and balance+%d>=0;",amount, id, amount);
-			
 			db.executeUpdate(query);
-			
 			return true;
 		}
 		catch(Exception ex) {
@@ -71,8 +70,8 @@ public class PersonDB {
 	public boolean exists(int id) {
 		try {
 			String query = String.format("select * from person where personid= %d;", id);
-			ResultSet rs = db.stmt.executeQuery(query);
-			rs.next();
+			db.rs = db.stmt.executeQuery(query);
+			db.rs.next();
 			return true;
 		}
 		catch(Exception ex) {

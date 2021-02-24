@@ -7,7 +7,7 @@ public class App {
 	private ReservationSystem rs;
 	public App() throws Exception {
 		rs = new ReservationSystem();
-		init();
+		//init();
 	}
 	 
 	public void init() {

@@ -59,7 +59,6 @@ public class QueueDB {
 			return res;
 		}
 		catch(Exception e) {	 
-			System.out.println("[no person in queue]" + e.getMessage());
 			res[0] = -1;
 			return res;
 		}

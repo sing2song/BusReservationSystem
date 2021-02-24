@@ -61,6 +61,7 @@ public class BusDB {
 			ResultSet rs = sment.executeQuery();
 			while (rs.next()) buslist.add(rsToBus(rs));
 			sment.close();
+			
 			return buslist;
 		} catch (Exception e) {
 			System.out.println("[error select all bus] "+ e.getMessage());
@@ -71,11 +72,8 @@ public class BusDB {
 	/* UPDATE */
 	public boolean updateSeats(int busid, String seats) {
 		try {
-			String query;
-			if (exists(busid) == true) {
-				query = String.format("update bus set seats= \"%s\" where busid=%d;", seats, busid);
-				db.executeUpdate(query);
-			}
+			String query = String.format("update bus set seats= \"%s\" where busid=%d;", seats, busid);
+			db.executeUpdate(query);
 			return true;
 		} catch (Exception e) {
 			System.out.println("[error update seats bus] "+ e.getMessage());
@@ -85,11 +83,8 @@ public class BusDB {
 
 	public boolean updateCount(int busid, int i) {
 		try {
-			String query;
-			if (exists(busid) == true) {
-				query = String.format("update bus set count=count+%d where busid=%d;", i, busid);
-				db.executeUpdate(query);
-			}
+			String query = String.format("update bus set count=count+%d where busid=%d;", i, busid);
+			db.executeUpdate(query);
 			return true;
 		} catch (Exception e) {
 			System.out.println("[error update count bus] "+ e.getMessage());
@@ -101,8 +96,8 @@ public class BusDB {
 	public boolean exists(int busid) {
 		try {
 			String query = String.format("select * from bus where busid= %d;", busid);
-			ResultSet rs = db.stmt.executeQuery(query);
-			rs.next();
+			db.rs = db.stmt.executeQuery(query);
+			db.rs.next();
 			return true;
 		}
 		catch(Exception ex) {
@@ -115,9 +110,10 @@ public class BusDB {
 	public String getName(int busid) {
 		try {
 			String query = String.format("select name from bus where busid = %d;", busid);
-			ResultSet rs = db.stmt.executeQuery(query);
-			rs.next();
-			return rs.getString("name");
+			db.rs = db.stmt.executeQuery(query);
+			db.rs.next();
+			String name = db.rs.getString("name");
+			return name;
 		}
 		catch(Exception ex) {
 			System.out.println("[error get name from bus]: " +ex.getMessage());

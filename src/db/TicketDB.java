@@ -49,20 +49,21 @@ public class TicketDB {
 	/*예약된 티켓들
 	 * 1. select(personid) --> Person
 	 * 2. select(personid) --> ticketid, busid, bus name, seat #
-	 * Object[] : ticketid, busid, name, seat
+	 * //Object[] : ticketid, busid, name, seat, date
 	 * */
 	public ArrayList<Object[]> select(int personid) {
 		//1. ticket table에서 버스 아이디 가져오
 		ArrayList<Object[]> res = new ArrayList<Object[]>();
 		try {
-			String query = String.format("select ticketid, busid, seat from ticket where personid = %d;", personid);
-			ResultSet rs = db.stmt.executeQuery(query);
-			while(rs.next()) {
-				Integer ticketid = rs.getInt("ticketid");
-				Integer busid = rs.getInt("busid");
+			String query = String.format("select ticketid, busid, seat, date from ticket where personid = %d;", personid);
+			db.rs = db.stmt.executeQuery(query);
+			while(db.rs.next()) {
+				Integer ticketid = db.rs.getInt("ticketid");
+				Integer busid = db.rs.getInt("busid");
+				Integer seat = db.rs.getInt("seat")+1;
+				String date = db.rs.getDate("date").toString() + " "+ db.rs.getTime("date").toString();
 				String name = db.busDB.getName(busid);
-				Integer seat = rs.getInt("seat");
-				Object[] array = {ticketid, busid, name, seat};//티켓 정보들 배열로 저장해 반환 
+				Object[] array = {ticketid, busid, name, seat, date};//티켓 정보들 배열로 저장해 반환 
 				res.add(array);
 			}
 			return res;
@@ -80,22 +81,21 @@ public class TicketDB {
 	 * */
 	public boolean delete(int ticketid) {
 		Bus bus; 
-		int seat, busid, personid, nextpersonid, queueid, amount;
+		int seat, busid, personid, nextpersonid, queueid;
 		String seats, newSeats;
 		try {
 			//1. ticket에서 seat, busid, personid 가져오기
 			String query = String.format("select seat, busid, personid from ticket where ticketid = %d;", ticketid);
-			ResultSet rs = db.stmt.executeQuery(query);
-			rs.next();
-			busid = rs.getInt("busid");//버스 id
-			seat = rs.getInt("seat");//그 좌석 
-			personid = rs.getInt("personid");//예약 취소하는 사
+			db.rs = db.stmt.executeQuery(query);
+			db.rs.next();
+			busid = db.rs.getInt("busid");//버스 id
+			seat = db.rs.getInt("seat");//그 좌석 
+			personid = db.rs.getInt("personid");//예약 취소하는 사
 			bus = db.busDB.select(busid);//버스 객체 
 			
 			//2. delete from ticket
 			query = String.format("delete from ticket where ticketid = %d;", ticketid);
 			db.executeUpdate(query);
-			
 			//3. bus update
 			seats = bus.getSeats();
 			StringBuilder sb = new StringBuilder(seats);

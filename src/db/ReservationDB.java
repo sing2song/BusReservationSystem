@@ -2,11 +2,13 @@
 package db;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.Statement;
 
 public class ReservationDB {
 	Connection con = null;
 	Statement stmt = null;
+	ResultSet rs = null;
 	public PersonDB personDB; //person 테이블 불러올 때:db.personDB.insert(...)
 	public BusDB busDB;
 	public TicketDB ticketDB;
