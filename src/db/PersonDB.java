@@ -16,7 +16,7 @@ public class PersonDB {
 			return true;
 		}
 		catch(Exception e) {
-			System.out.println("[person 삽입 실패]" + e.getMessage());
+			System.out.println("[insert person 실패]" + e.getMessage());
 			return false;
 		}
 	}
@@ -43,8 +43,7 @@ public class PersonDB {
 	public ArrayList<Person> selectAll() {
 		try {
 			ArrayList<Person> arr = new ArrayList<Person>();
-			String query 
-			= String.format("select * from person ;");
+			String query = String.format("select * from person;");
 			ResultSet rs = db.stmt.executeQuery(query);
 			while(rs.next()) {
 				int accid = rs.getInt(1);
