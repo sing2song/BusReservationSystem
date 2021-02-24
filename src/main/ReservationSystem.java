@@ -6,15 +6,9 @@ import model.Bus;
 import model.Person;
 public class ReservationSystem {
 	ReservationDB db;
-	List<Bus> buses;
-	List<Person> people;
-	
 	public ReservationSystem() throws Exception {
-		buses = new ArrayList<Bus>();
-		people = new ArrayList<Person>();
 		db = new ReservationDB();
 	}
-	
 	/*file io*/
 	public void insertBus(String name, int price, int size) {
 		try {
@@ -112,51 +106,45 @@ public class ReservationSystem {
 	}
 	/*4*/
 	public void seeDetails(Scanner in) {
-		System.out.print("id 를 입력해주세요 : >> ");
-		Person person = getPerson(in);
-		if(person == null) return;
-		System.out.println("*******************************************");
-		person.MyTickets();
-		person.MyQueue();
-		System.out.println("*******************************************");
+		try {
+			Person person = getPerson(in);
+			person.print();
+		}
+		catch(Exception e) {	System.out.println(e.getMessage());	}
 	}
 	/*5*/
 	public void cancelReservation(Scanner in) {
-		System.out.print("id 를 입력해주세요 : >> ");
-		Person person = getPerson(in);
-		if(person == null) return;
-		if(person.getTickets().size() == 0) {
-			System.out.println("구매한 티켓이 없습니다 ");
-			return;
-		}
-		person.MyTickets();//예약된 티켓 출력 
-		System.out.print("취소하실 버스를 선택해주세요 : >> ");
+		Person person;
 		try {
-			Bus bus = getBus(in);
-			Integer seat = person.CancelTicket(bus);//key, value삭제, 잔액 더하기
-			bus.Cancel(seat-1);//버스에 삭제 
-			System.out.printf("[%d] %s, 좌석번호: %d 취소 성공했습다\n", bus.getBusId(), bus.getName(), seat);
+			person = getPerson(in);
+			if(person.getTickets().size() == 0) throw new Exception("구매한 티켓이 없습니다 ");
+			person.MyTickets();
+			try {
+				System.out.print("취소하실 티켓을 선택해주세요 : >> ");
+				int ticketid = Integer.parseInt(read(in));
+				if(db.ticketDB.delete(ticketid)) System.out.println("취소 성공했습니다.");
+				else throw new Exception();
+			}
+			catch(Exception e) {throw new Exception("예약 취소 오류!");}
 		}
-		catch(Exception e) {System.out.println("예약 취소 오류!");}
+		catch(Exception e) {	System.out.println(e.getMessage());	}
 	}
 	/*6*/
 	public void cancelBusQueue(Scanner in) {
-		System.out.print("id 를 입력해주세요 : >> ");
-		Person person = getPerson(in);
-		if(person == null) return;
-		if(person.getQueuedBuses().size() == 0) {
-			System.out.println("대기중인 버스가 없습니다 ");
-			return;
-		}
-		person.MyQueue();
-		System.out.print("대기 취소하실 버스를 선택해주세요 : >> ");
 		try {
-			Bus bus = getBus(in);
-			person.removeQueueBuses(bus);
-			bus.RemoveFromQueue(person);
+			Person person = getPerson(in);
+			if(person.getQueues().size() == 0) throw new Exception("대기중인 버스가 없습니다.");
+			person.MyQueues();
+			System.out.print("대기 취소하실 버스를 선택해주세요 : >> ");
+			try {
+				int queueid = Integer.parseInt(read(in));
+				if(db.queueDB.delete(queueid)) System.out.println("취소 성공했습니다.");
+				else throw new Exception();
+			}
+			catch(Exception e) { throw new Exception("대기 취소 오류.");}
 		}
-		catch(Exception e) { System.out.println("대기 취소 오류!");}
-		
+		catch(Exception e) {	System.out.println(e.getMessage());	}
+				
 		
 	}
 	/*HELPER METHODS*/

@@ -27,7 +27,7 @@ public class Person {
 	public String getName() {return name;}
 	public int getBalance() {return balance;}
 	public ArrayList<Object[]> getTickets() {return tickets;}
-	public ArrayList<Object[]> getQueuedBuses() {return this.queues;}
+	public ArrayList<Object[]> getQueues() {return this.queues;}
 	public void setQueues(ArrayList<Object[]> q) {this.queues = q;}
 	public void setTickets(ArrayList<Object[]> t) { this.tickets = t;}
 	public void print() {
