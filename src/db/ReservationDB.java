@@ -14,9 +14,9 @@ public class ReservationDB {
 		try {			
 			Class.forName("com.mysql.jdbc.Driver");
 			System.out.println("드라이버 로딩 성공");
-			String password = "1234";
+			String password = "ssong";
 			//String url = "jdbc:mysql://localhost:3306/busReservationSystem?serverTimezone=UTC";
-			String url = "jdbc:mysql://localhost:3306?serverTimezone=UTC";
+			String url = "jdbc:mysql://localhost:3306/sampleDB?serverTimezone=UTC";
 			con = DriverManager.getConnection(url,"root", password);
 			System.out.println("데이터베이스 연결성공");
 			stmt = con.createStatement();
@@ -28,7 +28,7 @@ public class ReservationDB {
 			ticketDB = new TicketDB(this);
 			queueDB= new QueueDB(this);
 		}
-catch (Exception e) {
+		catch (Exception e) {
 			throw new Exception("데이터베이스 연결 오류");
 		}		
 	}
@@ -39,5 +39,5 @@ catch (Exception e) {
 		}
 		catch(Exception e) {throw new Exception(e.getMessage());}
 	}
-	
+
 }

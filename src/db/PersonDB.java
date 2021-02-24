@@ -25,14 +25,14 @@ public class PersonDB {
 			String query 
 			= String.format("select * from person where personid= %d;", id);
 			ResultSet rs = db.stmt.executeQuery(query);			
-			
+
 			rs.next();
 			int accid = rs.getInt(1);
 			String name = rs.getString(2);
 			int balance = rs.getInt(3);
-			
+
 			Person person = new Person(accid,name,balance);
-			
+
 			return person;
 		}
 		catch(Exception ex) {
@@ -40,16 +40,17 @@ public class PersonDB {
 		}
 	}
 	/*READ*/
+	/* personId, name, balance */
 	public ArrayList<Person> selectAll() {
 		try {
 			ArrayList<Person> arr = new ArrayList<Person>();
 			String query = String.format("select * from person;");
 			ResultSet rs = db.stmt.executeQuery(query);
 			while(rs.next()) {
-				int accid = rs.getInt(1);
+				int personid = rs.getInt(1);
 				String name = rs.getString(2);
 				int balance = rs.getInt(3);
-				arr.add(new Person(accid, name, balance));
+				arr.add(new Person(personid, name, balance));
 			}
 			return arr;
 		}
@@ -62,14 +63,14 @@ public class PersonDB {
 		try {	
 			String query;
 			if( exists(id) == true) 
-			query = String.format("update person set balance= balance+ %d where accid=%d;",
-					amount, id);
+				query = String.format("update person set balance= balance+ %d where accid=%d;",
+						amount, id);
 			else
 				query = String.format("update person set balance= balance- %d where accid=%d;",
 						amount, id);
-			
+
 			db.executeUpdate(query);
-			
+
 			return true;
 		}
 		catch(Exception ex) {
