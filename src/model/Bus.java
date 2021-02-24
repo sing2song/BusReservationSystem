@@ -5,34 +5,21 @@ import java.util.Queue;
 public class Bus {
 
 	private int busId;
-	private int price;
 	private String name;
-	private int count;
+	private int price;
 	private int size;
+	private int count;
 	private String seats;
 	
 	//생성자
-	public Bus(int busId, String name, int price,int size) {
-		this.busId = busId;
-		this.price = price;
-		this.name = name;
-		this.size = size;
-		//seats = new int[size];
-		count = 0;
-	}
-	
-	
 	public Bus(int busId, int price, String name, int count, int size, String seats) {
 		this.busId = busId;
 		this.price = price;
 		this.name = name;
 		this.size = size;
 		this.seats = seats;
-		count = 0;
+		this.count = count;
 	}
-
-
-
 
 //getter setter
 	public String getSeats() {return seats;}
