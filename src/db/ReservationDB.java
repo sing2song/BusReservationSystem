@@ -1,3 +1,4 @@
+
 package db;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -28,7 +29,7 @@ public class ReservationDB {
 			ticketDB = new TicketDB(this);
 			queueDB= new QueueDB(this);
 		}
-catch (Exception e) {
+		catch (Exception e) {
 			throw new Exception("데이터베이스 연결 오류");
 		}		
 	}
@@ -39,5 +40,5 @@ catch (Exception e) {
 		}
 		catch(Exception e) {throw new Exception(e.getMessage());}
 	}
-	
+
 }
