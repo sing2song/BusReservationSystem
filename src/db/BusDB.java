@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import model.Bus;
 
 public class BusDB {
-	public ReservationDB db;
+	public ReservationDB db; 
 	public BusDB(ReservationDB db) { this.db = db;}
 	/*QUERIES***************************************************/
 	/*CREATE*/
