@@ -18,6 +18,7 @@ public class App {
 				String[] arr = rs.read(sc).split(" ");
 				rs.insertBus(arr[0], Integer.parseInt(arr[1]), Integer.parseInt(arr[2]) );
 			}
+		
 			sc = new Scanner(new File("people.txt"));
 			while(sc.hasNextLine()) {
 				//name, balance

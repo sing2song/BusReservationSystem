@@ -22,7 +22,7 @@ public class TicketDB {
 			String seats, newSeats;
 			//1. bus update seats
 			seats = bus.getSeats();//원래 자리 표시 
-			if(seats.charAt(seat) == 0) {
+			if(seats.charAt(seat) == '0') {
 				StringBuilder sb = new StringBuilder(seats);
 				sb.replace(seat, seat+1, "1");//에약됨 표
 				newSeats = sb.toString();
@@ -102,6 +102,7 @@ public class TicketDB {
 			sb.replace(seat, seat+1, "0");
 			newSeats = sb.toString();
 			db.busDB.updateSeats(busid, newSeats);
+			bus = db.busDB.select(busid);
 
 			//4. queue에서 첫번째 대기자 nextpersonid 가져오기
 			int[] temp = db.queueDB.selectByBus(busid);

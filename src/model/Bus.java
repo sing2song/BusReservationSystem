@@ -40,7 +40,7 @@ public class Bus {
 		char[] chars = seats.toCharArray();
 		for (int i = 0 ; i < chars.length; i ++) {
 			System.out.printf("[%d] ", i+1);
-			if(chars[i] == 0) System.out.println("O");
+			if(chars[i] == '0') System.out.println("O");
 			else System.out.println("X");
 		}
 	}

@@ -19,8 +19,8 @@ public class ReservationSystem {
 		try {
 			String seats;
 			char[] chars = new char[size];
-			seats = new String(chars);
 			Arrays.fill(chars, '0');
+			seats = new String(chars);
 			if(!db.busDB.insert(name, price, seats, size)) throw new Exception();
 		}
 		catch(Exception e) {
@@ -34,12 +34,12 @@ public class ReservationSystem {
 			String[] arr = read(in).split(" ");
 			int price, size;
 			String name, seats;
+			name = arr[0];
 			price = Integer.parseInt(arr[1]);
 			size = Integer.parseInt(arr[2]);
 			char[] chars = new char[size];
-			seats = new String(chars);
-			name = arr[0];
 			Arrays.fill(chars, '0');
+			seats = new String(chars);
 			if(!db.busDB.insert(name, price, seats, size)) throw new Exception();
 		}
 		catch(Exception e) {

@@ -32,7 +32,7 @@ public class Person {
 	public void setTickets(ArrayList<Object[]> t) { this.tickets = t;}
 	public void print() {
 		System.out.println("-----------------------------------------------------------------");
-		System.out.println("[잔액] : " + this.balance);
+		System.out.println("ID: "+ this.id+"\t이름: " + this.name + "\t[잔액] : " + this.balance);
 		MyTickets();
 		MyQueues();
 		System.out.println("-----------------------------------------------------------------");
