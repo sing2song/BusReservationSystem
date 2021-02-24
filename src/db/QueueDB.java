@@ -17,7 +17,7 @@ public class QueueDB {
 			return false;}
 	}
 	/*대기중인 버스
-	 * Object[] : { queue id, busid, busname, seat}
+	 * Object[] : { queue id, busid, busname}
 	 * */
 	public ArrayList<Object[]> selectByPerson(int personid) {
 		//1. ticket table에서 버스 아이디 가져오
@@ -28,7 +28,6 @@ public class QueueDB {
 			Integer queueid = rs.getInt("queueid");
 			Integer busid = rs.getInt("busid");
 			String name = ReservationDB.busDB.getName(busid);
-			Integer seat = rs.getInt("seat");
 			Object[] array = {ticketid, busid, name, seat};
 			res.add(array);
 		}
