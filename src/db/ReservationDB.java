@@ -21,11 +21,11 @@ public class ReservationDB {
 			//String url = "jdbc:mysql://localhost:3306?serverTimezone=UTC";
 			//String password = "1234";
 			/*정선s configuration*****************************************/
-			String url = "jdbc:mysql://localhost:3306/busReservationSystem?serverTimezone=UTC";
-			String password = "password";
+			//String url = "jdbc:mysql://localhost:3306/busReservationSystem?serverTimezone=UTC";
+			//String password = "password";
 			/*송원*/
-			//String url ="jdbc:mysql://localhost:3306/sampleDB?serverTimezone=UTC";
-			//String password = "ssong";
+			String url ="jdbc:mysql://localhost:3306/sampleDB?serverTimezone=UTC";
+			String password = "1234";
 			/**********************************************************/
 			con = DriverManager.getConnection(url,"root", password);
 			System.out.println("데이터베이스 연결성공");
