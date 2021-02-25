@@ -52,7 +52,7 @@ public class TicketDB {
 	 * //Object[] : ticketid, busid, name, seat, date
 	 * */
 	public ArrayList<Object[]> select(int personid) {
-		//1. ticket table에서 버스 아이디 가져오
+		//1. ticket table에서 버스 아이디 가져오기 
 		ArrayList<Object[]> res = new ArrayList<Object[]>();
 		try {
 			String query = String.format(
