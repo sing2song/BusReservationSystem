@@ -27,12 +27,13 @@ public class QueueDB {
 		//1. ticket table에서 버스 아이디 가져오
 		ArrayList<Object[]> res = new ArrayList<Object[]>();
 		try {
-			String query = String.format("select queueid, busid from queue where personid = %d;", personid);
+			String query = String.format(
+					"select q.queueid, q.busid, b.name from queue q inner join bus b on q.busid = b.busid where personid = %d;", personid);
 			ResultSet rs = db.stmt.executeQuery(query);
 			while(rs.next()) {
 				Integer queueid = rs.getInt("queueid");
 				Integer busid = rs.getInt("busid");
-				String name = db.busDB.getName(busid);
+				String name = rs.getString("name");
 				Object[] array = {queueid, busid, name};
 				res.add(array);
 			}
