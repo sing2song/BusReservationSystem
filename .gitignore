@@ -1,4 +1,6 @@
 /.classpath
+/*.classpath
 /*.jar
 /bin/
 *.jar
+

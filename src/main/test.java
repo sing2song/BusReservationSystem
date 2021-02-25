@@ -9,5 +9,7 @@ public class test {
 		
 		System.out.println("push 체크");
 		System.out.println("push 체크 2");
+		
+		System.out.println("쏘쏘쏘쏬ㅇ");
 	}
 }
