@@ -29,11 +29,11 @@ public class QueueDB {
 		try {
 			String query = String.format(
 					"select q.queueid, q.busid, b.name from queue q inner join bus b on q.busid = b.busid where personid = %d;", personid);
-			ResultSet rs = db.stmt.executeQuery(query);
-			while(rs.next()) {
-				Integer queueid = rs.getInt("queueid");
-				Integer busid = rs.getInt("busid");
-				String name = rs.getString("name");
+			db.rs = db.stmt.executeQuery(query);
+			while(db.rs.next()) {
+				Integer queueid = db.rs.getInt("queueid");
+				Integer busid = db.rs.getInt("busid");
+				String name = db.rs.getString("name");
 				Object[] array = {queueid, busid, name};
 				res.add(array);
 			}
