@@ -8,5 +8,6 @@ public class test {
 		System.out.println("되라");
 		
 		System.out.println("push 체크");
+		System.out.println("push 체크 2");
 	}
 }
