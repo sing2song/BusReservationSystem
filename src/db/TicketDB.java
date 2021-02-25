@@ -55,14 +55,15 @@ public class TicketDB {
 		//1. ticket table에서 버스 아이디 가져오
 		ArrayList<Object[]> res = new ArrayList<Object[]>();
 		try {
-			String query = String.format("select ticketid, busid, seat, date from ticket where personid = %d;", personid);
+			String query = String.format(
+					"select t.ticketid, t.busid, t.seat, t.date, b.name from ticket t inner join bus b on t.busid = b.busid where personid = %d;", personid);
 			db.rs = db.stmt.executeQuery(query);
 			while(db.rs.next()) {
 				Integer ticketid = db.rs.getInt("ticketid");
 				Integer busid = db.rs.getInt("busid");
 				Integer seat = db.rs.getInt("seat")+1;
 				String date = db.rs.getDate("date").toString() + " "+ db.rs.getTime("date").toString();
-				String name = db.busDB.getName(busid);
+				String name = db.rs.getString("name");
 				Object[] array = {ticketid, busid, name, seat, date};//티켓 정보들 배열로 저장해 반환 
 				res.add(array);
 			}
