@@ -25,7 +25,7 @@ public class ReservationDB {
 			//String password = "password";
 			/*송원*/
 			String url ="jdbc:mysql://localhost:3306/sampleDB?serverTimezone=UTC";
-			String password = "ssong";
+			String password = "1234";
 			/**********************************************************/
 			con = DriverManager.getConnection(url,"root", password);
 			System.out.println("데이터베이스 연결성공");

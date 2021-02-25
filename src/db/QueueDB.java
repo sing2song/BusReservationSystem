@@ -51,10 +51,10 @@ public class QueueDB {
 		int[] res = new int[2];
 		try {
 			String query = String.format("select queueid, personid from queue where busid = %d order by date asc;", busid);
-			ResultSet rs = db.stmt.executeQuery(query);
-			rs.next();			//대기자가 없다면 exception			
-			Integer queueid = rs.getInt("queueid");
-			Integer personid = rs.getInt("personid");
+			db.rs = db.stmt.executeQuery(query);
+			db.rs.next();			//대기자가 없다면 exception			
+			Integer queueid = db.rs.getInt("queueid");
+			Integer personid = db.rs.getInt("personid");
 			res[0] = queueid;
 			res[1] = personid;
 			return res;
