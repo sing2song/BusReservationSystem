@@ -50,7 +50,7 @@ public class QueueDB {
 	public int[] selectByBus(int busid) {
 		int[] res = new int[2];
 		try {
-			String query = String.format("select queueid, personid from queue where busid = %d order by queueid;", busid);
+			String query = String.format("select queueid, personid from queue where busid = %d order by date asc;", busid);
 			ResultSet rs = db.stmt.executeQuery(query);
 			rs.next();			//대기자가 없다면 exception			
 			Integer queueid = rs.getInt("queueid");
