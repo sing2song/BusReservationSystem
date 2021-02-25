@@ -15,7 +15,7 @@ public class ReservationDB {
 	public QueueDB queueDB;
 	public ReservationDB() throws Exception {
 		try {			
-			Class.forName("com.mysql.jdbc.Driver");
+			Class.forName("com.mysql.cj.jdbc.Driver");
 			System.out.println("드라이버 로딩 성공");
 			/**********************************************************/
 			//String url = "jdbc:mysql://localhost:3306?serverTimezone=UTC";

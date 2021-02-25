@@ -109,12 +109,13 @@ public class TicketDB {
 			queueid = temp[0];
 			nextpersonid = temp[1];
 			
+			db.busDB.updateCount(busid, -1);//버스 업뎃
 			//4. 대기자 있으면  
 			if(queueid!= -1) {
 				db.queueDB.delete(queueid);//대기자에서 삭제 
 				insert(nextpersonid, bus, seat);//티켓 새로 만들
 			}
-			else db.busDB.updateCount(busid, -1);//버스 업뎃 
+			 
 
 			//5.잔액
 			db.personDB.update(personid, bus.getPrice());//+ price 잔액에서 더하기 
